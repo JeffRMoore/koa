@@ -17,7 +17,7 @@ Property | Type | Description
 [method](#requestmethod) | `String` | The request's HTTP method (e.g. GET or POST)
 [idempotent](#requestidempotent) | `Boolean` | Is the request method idempotent?
 
-#### Writeable Properties
+#### writable Properties
 
 Property | Type | Description
 ---------| ---- | -----------
@@ -47,7 +47,7 @@ Property | Type | Description
 [href](#requesthref) | `String` | The full `url`, prefixed by `origin`
 [originalUrl](#requestoriginalurl) | `String` | The value of `url` prior to any request modifications
 
-#### Writeable Properties
+#### writable Properties
 
 Property | Type | Description
 -------- | ------- | -----------
@@ -89,10 +89,10 @@ Property | Type | Description
 
 Method | Return Type | Description
 -------| ----------- | -----------
-[accepts](#requestaccepts) | mixed | Check if the given MIME types are acceptable
-[acceptsEncodings](#requestacceptsencodings) | mixed | Check if `encodings` are acceptable
-[acceptsCharsets](#requestacceptscharsets) | mixed | Check if `charsets` are acceptable
-[acceptsLanguages](#requestacceptslanguages) | mixed | Check if `langs` are acceptable
+[accepts](#requestaccepts) | `Array` or `String` or `false` | Check if the given MIME types are acceptable
+[acceptsEncodings](#requestacceptsencodings) | `Array` or `String` | Check if `encodings` are acceptable
+[acceptsCharsets](#requestacceptscharsets) | `Array` or `String` | Check if `charsets` are acceptable
+[acceptsLanguages](#requestacceptslanguages) | `Array` or `String` | Check if `langs` are acceptable
 
 ### Request Body Overview
 
@@ -129,8 +129,8 @@ Property | Type | Description
 
 Method | Type | Description
 ------ | ---- | -----------
-[inspect](#requestinspect) | `string` | Not documented
-[toJSON](#requesttojson) | `string` | Not documented
+[inspect](#requestinspect) | `Object` | Not documented
+[toJSON](#requesttojson) | `Object` | Not documented
 
 ## API
 
@@ -583,14 +583,14 @@ Header | Specification | Support
 Header | Specification | Support
 ------ | ------------- | -------
 `From` | [RFC 7231 sec 5.5.1](https://tools.ietf.org/html/rfc7231#section-5.5.1) | basic [header accessors](#basicheaderaccessors)
-`Referer` | [RFC 7231 sec 5.5.2](https://tools.ietf.org/html/rfc7231#section-5.5.2) | basic [header accessors](#basicheaderaccessors)
+`Referer` | [RFC 7231 sec 5.5.2](https://tools.ietf.org/html/rfc7231#section-5.5.2) | [response.redirect](response#redirect)
 `User-Agent` | [RFC 7231 sec 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3) | basic [header accessors](#basicheaderaccessors)
 
 ### Cookie Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
-`Cookie` | [RFC 6265](https://tools.ietf.org/html/rfc6265) | [Cookies](context#cookies)
+`Cookie` | [RFC 6265](https://tools.ietf.org/html/rfc6265) | [context.Cookies](context#cookies)
 
 ### Request Forwarding Headers
 
