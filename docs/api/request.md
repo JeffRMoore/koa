@@ -4,6 +4,134 @@
   providing additional functionality that is useful for every day HTTP server
   development.
 
+## Overview
+
+### Request Method Overview
+
+Access the http method from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1).
+
+#### Readable Properties
+
+Property | Type | Description
+---------| ---- | -----------
+[method](#requestmethod) | `String` | The request's HTTP method (e.g. GET or POST)
+[idempotent](#requestidempotent) | `Boolean` | Is the request method idempotent?
+
+#### Writeable Properties
+
+Property | Type | Description
+---------| ---- | -----------
+[method](#requestmethod) | `String` | Set the request's HTTP method
+
+### Request Target Overview
+
+Access the request target from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1)
+as well as the `Host` header and the protocol used for the request.
+This functionality is used for url construction and routing.
+
+#### Readable Properties
+
+Property | Type | Description
+--------- | -------- | -----------
+[protocol](#requestprotocol) | `String` | The request protocol, "https" or "http".
+[secure](#requestsecure) | `Boolean` | `true` if the request was issued via TLS
+[host](#requesthost) | `String` | The value of the `Host` header.
+[hostname](#requesthostname) | `String` | The `host` without the port.
+[subdomains](#requestsubdomains) | `Array` | The `hostname`, split into subdomains 
+[url](#requesturl) | `String` | The request URL (full request target)
+[path](#requestpath) | `String` | The requested path
+[search](#requestsearch) | `String` | The raw query string with the `?`
+[querystring](#requestquerystring) | `String` | The raw query string void of `?`
+[query](#requestquery) | `Object` | The parsed query string
+[origin](#requestorigin) | `String` | The `protocol` and the `host` in `protocol:\\host` format
+[href](#requesthref) | `String` | The full `url`, prefixed by `origin`
+[originalUrl](#requestoriginalurl) | `String` | The value of `url` prior to any request modifications
+
+#### Writeable Properties
+
+Property | Type | Description
+-------- | ------- | -----------
+[url](#requesturl) | `String` | Set the full request url, including query parameters
+[path](#requestpath) | `String` | Set request path
+[querystring](#requestquerystring) | `String` | Set raw query string (do not include '?')
+[search](#requestsearch) | `String` | Set raw query string with (must include '?')
+[query](#requestquery) | `String` | Set query-string to the given object
+
+### Basic Header Accessor Overview
+
+General methods and properties for accesing request headers.
+
+#### Readable Properties
+
+Property | Type | Description
+-------- | ---- | -----------
+[header](#requestheader) | `Object` | All request headers as an object with header name as the key.
+[headers](#requestheaders) | `Object` | Alias of `header`
+
+#### Methods
+
+Method | Return Type | Description
+------- | ------- | -----------
+[get](#requestget) | `String` | Get a header value by name
+
+### Cache Header Overview
+
+#### Readable Properties
+
+Property | Type | Description
+-------- | ---- | -----------
+[fresh](#requestfresh) | `Boolean` | Check if a request cache is "fresh"
+[stale](#requeststale) | `Boolean` | Inverse of `request.fresh`
+
+### Content Negotiation Overview
+
+#### Methods
+
+Method | Return Type | Description
+-------| ----------- | -----------
+[accepts](#requestaccepts) | mixed | Check if the given MIME types are acceptable
+[acceptsEncodings](#requestacceptsencodings) | mixed | Check if `encodings` are acceptable
+[acceptsCharsets](#requestacceptscharsets) | mixed | Check if `charsets` are acceptable
+[acceptsLanguages](#requestacceptslanguages) | mixed | Check if `langs` are acceptable
+
+### Request Body Overview
+
+Access the [request body](https://tools.ietf.org/html/rfc7230#section-3.3) and
+`Content-Length` headers.
+
+#### Readable Properties
+
+Property | Type | Description
+-------- | ---- | -----------
+[type](#requesttype) | `String` | The `Content-Type` header void of parameters such as "charset"
+[charset](#requestcharset) | `String` | The charset from the `Content-Type` header when present, or `undefined`
+[length](#requestlength) | `Number` | Return `Content-Length` header as a number when present, or `undefined`
+
+#### Methods
+
+Method | Type | Description
+------ | ---- | -----------
+[is](#requestis) | `Boolean` |Check if the incoming request contains the `Content-Type` header field, and it contains any of the given MIME types. 
+
+### Request Information Overview
+
+Information about the request and the sender of the request.
+
+#### Readable Properties
+
+Property | Type | Description
+---------| ---- | -----------
+[ip](#requestip) | `String` |  Request remote address. Supports `X-Forwarded-For`
+[ips](#requestips) | `Array` | The list of IPs from the `X-Forwarded-For` header  
+[socket](#requestsocket) | [net.Socket](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the request
+
+#### Methods
+
+Method | Type | Description
+------ | ---- | -----------
+[inspect](#requestinspect) | `string` | Not documented
+[toJSON](#requesttojson) | `string` | Not documented
+
 ## API
 
 ### request.header
@@ -370,3 +498,105 @@ ctx.acceptsLanguages();
 ### request.get(field)
 
   Return request header.
+
+## Request Header Cross Reference
+
+### Message Body (Payload semantics)
+
+Header | Specification | Support
+------ | ------------- | -------
+`Content-Length` | [RFC 7230 sec 3.3.2](https://tools.ietf.org/html/rfc7230#section-3.3.2) | [length](#requestlength) 
+`Content-Range` | [RFC 7233 4.2](https://tools.ietf.org/html/rfc7233#section-4.2) | basic [header accessors](#basicheaderaccessors)
+(`Trailer`) | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#basicheaderaccessors)
+`Transfer-Encoding` | [RFC 7230 sec 3.3.1](https://tools.ietf.org/html/rfc7230#section-3.3.1) | basic [header accessors](#basicheaderaccessors)
+
+### Transfer Coding Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`TE` | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#basicheaderaccessors)
+`Trailer` | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#basicheaderaccessors)
+
+### Message Routing Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Host` | [RFC 7230 sec 5.4](https://tools.ietf.org/html/rfc7230#section-5.4) | [host](#requesthost)
+`Via` | [RFC 7230 sec 5.7.1](https://tools.ietf.org/html/rfc7230#section-5.7.1) | basic [header accessors](#basicheaderaccessors)
+
+### Connection Management Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Connection` | [RFC 7230 sec 6.1](https://tools.ietf.org/html/rfc7230#section-6.1) | basic [header accessors](#basicheaderaccessors)
+`Upgrade` | [RFC 7230 sec 6.7](https://tools.ietf.org/html/rfc7230#section-6.7) | basic [header accessors](#basicheaderaccessors)
+
+### Representation Metadata Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Content-Type` | [RFC 7231 sec 3.1.1.5](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) | [type](#requesttype), [charset](#requestcharset), or [is](#requestis) 
+`Content-Encoding` | [RFC 7231 sec 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) | basic [header accessors](#basicheaderaccessors)
+`Content-Language` | [RFC 7231 sec 3.1.3.2](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) | basic [header accessors](#basicheaderaccessors)
+`Content-Location` | [RFC 7231 sec 3.1.4.2](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) | basic [header accessors](#basicheaderaccessors)
+
+### Control Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Cache-Control` | [RFC 7234 sec 5.2](https://tools.ietf.org/html/rfc7234#section-5.2) | [fresh](#requestfresh) or [stale](#requeststale)
+`Expect` | [RFC 7231 sec 5.1.1](https://tools.ietf.org/html/rfc7231#section-5.1.1) | basic [header accessors](#basicheaderaccessors)
+(`Host`) | [RFC 7230 sec 5.4](https://tools.ietf.org/html/rfc7230#section-5.4) | basic [header accessors](#basicheaderaccessors)
+`Max-Forwards` | [RFC 7231 sec 5.1.2](https://tools.ietf.org/html/rfc7231#section-5.1.2) | basic [header accessors](#basicheaderaccessors)
+`Pragma` | [RFC 7434 Sec 5.4](https://tools.ietf.org/html/rfc7234#section-5.3) | basic [header accessors](#basicheaderaccessors)
+`Range` | [RFC 7233 Sec 3.1](https://tools.ietf.org/html/rfc7233#section-3.1) | basic [header accessors](#basicheaderaccessors)
+(`TE`) | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#basicheaderaccessors)
+
+### Conditional Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`If-Match` | [RFC 7232 sec 3.1](https://tools.ietf.org/html/rfc7232#section-3.1) | basic [header accessors](#basicheaderaccessors)
+`If-None-Match`  |  [RFC 7232 sec 3.2](https://tools.ietf.org/html/rfc7232#section-3.2) | [fresh](#requestfresh) or [stale](#requeststale)
+`If-Modified-Since`  |  [RFC 7232 sec 3.3](https://tools.ietf.org/html/rfc7232#section-3.3) | [fresh](#requestfresh) or [stale](#requeststale)
+`If-Unmodified-Since`  |  [RFC 7232 sec 3.4](https://tools.ietf.org/html/rfc7232#section-3.4) | basic [header accessors](#basicheaderaccessors)
+`If-Range`  |  [RFC 7233 sec 3.2](https://tools.ietf.org/html/rfc7233#section-3.2) | basic [header accessors](#basicheaderaccessors)
+
+### Content Negotiation Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Accept` | [RFC 7231 sec 5.3.2](https://tools.ietf.org/html/rfc7231#section-5.3.2) | [accepts](#requestaccepts)
+`Accept-Charset` | [RFC 7231 sec 5.3.3](https://tools.ietf.org/html/rfc7231#section-5.3.3) | [acceptsCharsets](#requestacceptscharsets)
+`Accept-Encoding` | [RFC 7231 sec 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4) | [acceptsEncodings](#requestacceptsencodings)
+`Accept-Language` | [RFC 7231 sec 5.3.5](https://tools.ietf.org/html/rfc7231#section-5.3.5) | [acceptsLanguages](#requestacceptslanguages)
+
+### Authentication Credential Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Authorization` | [RFC 7235 sec 4.2](https://tools.ietf.org/html/rfc7235#section-4.2) | basic [header accessors](#basicheaderaccessors)
+`Proxy-Authorization` | [RFC 7235 sec 4.4](https://tools.ietf.org/html/rfc7235#section-4.4) | basic [header accessors](#basicheaderaccessors)
+
+### Request Context Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`From` | [RFC 7231 sec 5.5.1](https://tools.ietf.org/html/rfc7231#section-5.5.1) | basic [header accessors](#basicheaderaccessors)
+`Referer` | [RFC 7231 sec 5.5.2](https://tools.ietf.org/html/rfc7231#section-5.5.2) | basic [header accessors](#basicheaderaccessors)
+`User-Agent` | [RFC 7231 sec 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3) | basic [header accessors](#basicheaderaccessors)
+
+### Cookie Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Cookie` | [RFC 6265](https://tools.ietf.org/html/rfc6265) | [Cookies](context#cookies)
+
+### Request Forwarding Headers
+
+Header | Specification | Support
+------ | ------------- | -------
+`Forwarded` | [RFC 7239](https://tools.ietf.org/html/rfc7239) | basic [header accessors](#basicheaderaccessors)
+`X-Forwarded-Host` | de facto standard | [host](#requesthost)
+`X-Forwarded-Proto` | de facto standard | [protocol](#requestprotocol)
+`X-Forwarded-For` | de facto standard | [ips](#requestips)
