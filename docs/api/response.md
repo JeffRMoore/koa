@@ -8,19 +8,19 @@
 
 [Response Body](#response-body-overview) •
 [Status Line](#status-line-overview) •
-[Header Accessors](#basic-header-accessors-overview) •
+[Header Accessors](#header-accessor-overview) •
 [HTTP Caching](#http-caching-overview) •
 [Response Routing](#response-routing-overview) •
 [Utilities](#utilities-overview) •
 [HTTP Control](#http-control) •
 [Content Negotiation](#content-negotiation) •
 [Response Context](#response-context) •
-[Security and Privacy](#security-privacy) •
+[Security and Privacy](#security-and-privacy) •
 [Range Responses](#range-responses) •
 [Authentication Challenges](#authentication challenges) •
 [Cookies](#cookies)
 
-### Response Body <a id="response-body-overview"/>
+### Response Body Overview
 
 [Response Body Reference](#response-body)
 
@@ -47,7 +47,7 @@ Method | Return Type | Description
 [is](#responseis) | `String` or `false` | Check whether the response `Content-Type` matches one of the supplied types.
 [attachment](#responseattachment) | `undefined` | Set `Content-Disposition` to "attachment" to signal the client to prompt for download.
 
-### Status Line <a id="status-line-overview"/>
+### Status Line Overview
 
 [Status Line Reference](#status-line)
 
@@ -65,9 +65,9 @@ Property | Type | Description
 [status](#responsestuatus) | `Number` | Set the response status
 [message](#response) | `String` | Set the response status message
 
-### Basic Header Accessors <a id="basic-header-accessors-overview"/>
+### Header Accessor Overview
 
-[Basic Header Accessor Reference](#basic-header-accessors)
+[Basic Header Accessor Reference](#header-accessors)
 
 #### Readable Properties
 
@@ -87,7 +87,7 @@ Method | Return Type | Description
 [flushHeaders](#responseflushheaders) | `undefined` | Flush any set headers, and begin the body.
 [headerSent](#responseheaderssent) | `Boolean` | Check if a response header has already been sent. 
 
-### HTTP Caching <a id="http-caching-overview"/>
+### HTTP Caching Overview
 
 [HTTP Caching Reference](#http-caching)
 
@@ -111,7 +111,7 @@ Method | Return Type | Description
 ------ | ------- | -----------
 [vary](#responsevary) | `undefined` | Issue a `Vary` header
 
-### Response Routing <a id="response-routing-overview"/>
+### Response Routing Overview
 
 [Response Routing Reference](#response-routing)
 
@@ -121,7 +121,7 @@ Method | Return Type | Description
 ------ | ------- | -----------
 [redirect](#responseredirect) | `undefined` | Issue a `Location` header for a 30x redirect.
 
-### Utilities <a id="utilities-overview"/>
+### Utilities Overview
 
 [Utilities Reference](#utilities)
 
@@ -139,37 +139,37 @@ Method | Type | Description
 [toJSON](#responsetojson) | `Object` | Not documented
 [writable](#responsetojson) | `Boolean` | Not documented
 
-### Connection Management and HTTP Control <a id="http-control-overview"/>
+### HTTP Control Overview
 
 [Connection Management and HTTP Control Reference](#http-control)
 
-### Content Negotiation <a id="content-negotiation-overview"/>
+### Content Negotiation Overview
 
 [Content Negotiation Reference](#content-negotiation)
 
-### Response Context <a id="response-context-overview"/>
+### Response Context Overview
 
 [Response Context Reference](#response-context)
 
-### Security and Privacy <a id="security-privacy-overview"/>
+### Security and Privacy Overview
 
-[Security and Privacy Reference](#security-privacy)
+[Security and Privacy Reference](#security-and-privacy)
 
-### Range Responses <a id="range-responses-overview"/>
+### Range Responses Overview
 
 [Range Response Reference](#range-responses)
 
-### Authentication Challenges <a id="authentication-challenges-overview"/>
+### Authentication Challenge Overview
 
 [Authentication Challenge Reference](#authentication-challenges)
 
-### Cookies <a id="cookies-overview"/>
+### Cookies Overview
 
 [Cookies Reference](#cookies)
 
 ## API Reference
 
-### Response Body <a id="response-body"/>
+### Response Body
 
 See also [Request Body](request.md#request-body).
 
@@ -289,7 +289,9 @@ app.use(function * minifyHTML(next) {
   to prompt for download. Optionally specify the `filename` of the
   download.
 
-#### Response Body and Representation Metadata Headers <a id="response-body-headers"/>
+#### Response Body Headers
+
+and Representation Metadata
 
 Header | Specification | Support
 ------ | ------------- | -------
@@ -297,15 +299,15 @@ Header | Specification | Support
 `Content-Type` | [RFC 7231 sec 3.1.1.5](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) | [body](#responsebody) or [type](#responsetype) or [is](#responseis)
 `Transfer-Encoding` | [RFC 7230 sec 3.3.1](https://tools.ietf.org/html/rfc7230#section-3.3.1) | [body](#responsebody) 
 `Content-Disposition` | [RFC 6286](https://tools.ietf.org/html/rfc6266) | [attachment](#responseattachment)
-`Content-Encoding` | [RFC 7231 sec 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) | basic [header accessors](#basic-header-accessors)
-`Content-Language` | [RFC 7231 sec 3.1.3.2](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) | basic [header accessors](#basic-header-accessors)
-`Content-Location` | [RFC 7231 sec 3.1.4.2](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) | basic [header accessors](#basic-header-accessors)
-`TE` | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#basic-header-accessors)
-`Trailer` | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#basic-header-accessors)
+`Content-Encoding` | [RFC 7231 sec 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) | basic [header accessors](#header-accessors)
+`Content-Language` | [RFC 7231 sec 3.1.3.2](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) | basic [header accessors](#header-accessors)
+`Content-Location` | [RFC 7231 sec 3.1.4.2](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) | basic [header accessors](#header-accessors)
+`TE` | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#header-accessors)
+`Trailer` | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#header-accessors)
 
 See also [Request Body Headers](request.md#request-body-headers).
 
-### Status Line <a id="status-line"/>
+### Status Line
 
 #### response.status
 
@@ -385,9 +387,9 @@ so you can make a correction.
 
   Set response status message to the given value.
 
-### Basic Header Accessors <a id="basic-header-accessors"/>
+### Header Accessors
 
-See also [Request Header Accessors](request.md#basic-header-accessors).
+See also [Request Header Accessors](request.md#header-accessors).
 
 #### response.header
 
@@ -445,7 +447,7 @@ ctx.append('Link', '<http://127.0.0.1/>');
 
   Flush any set headers, and begin the body.
 
-### HTTP Caching <a id="http-caching"/>
+### HTTP Caching
 
 See also [Request HTTP Caching](request.md#http-caching).
 
@@ -475,22 +477,22 @@ ctx.response.etag = crypto.createHash('md5').update(ctx.body).digest('hex');
 
   Vary on `field`.
 
-#### HTTP Caching Headers <a id="http-caching-headers"/>
+#### HTTP Caching Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
 `ETag` | [RFC 7232 sec 2.3](https://tools.ietf.org/html/rfc7232#section-2.3) | [etag](#responseetag)
 `Vary` | [RFC 7231 sec 7.1.4](https://tools.ietf.org/html/rfc7231#section-7.1.4) | [vary](#responsevary)
-`Age` | [RFC 7234 sec 5.1](https://tools.ietf.org/html/rfc7234#section-5.1) | basic [header accessors](#basic-header-accessors)
-`Cache-Control` | [RFC 7234 sec 5.2](https://tools.ietf.org/html/rfc7234#section-5.2) | basic [header accessors](#basic-header-accessors)
-`Expires` | [RFC 7234 sec 5.3](https://tools.ietf.org/html/rfc7234#section-5.3) | basic [header accessors](#basic-header-accessors)
-`Last-Modified` | [RFC 7232 sec 2.2](https://tools.ietf.org/html/rfc7232#section-2.2) | basic [header accessors](#basic-header-accessors)
-`Warning` | [RFC 7234 sec 5.5](https://tools.ietf.org/html/rfc7234#section-5.5) | basic [header accessors](#basic-header-accessors)
-`Date` | [RFC 7231 sec 7.1.1.2](https://tools.ietf.org/html/rfc7231#section-7.1.1.2) | basic [header accessors](#basic-header-accessors)
+`Age` | [RFC 7234 sec 5.1](https://tools.ietf.org/html/rfc7234#section-5.1) | basic [header accessors](#header-accessors)
+`Cache-Control` | [RFC 7234 sec 5.2](https://tools.ietf.org/html/rfc7234#section-5.2) | basic [header accessors](#header-accessors)
+`Expires` | [RFC 7234 sec 5.3](https://tools.ietf.org/html/rfc7234#section-5.3) | basic [header accessors](#header-accessors)
+`Last-Modified` | [RFC 7232 sec 2.2](https://tools.ietf.org/html/rfc7232#section-2.2) | basic [header accessors](#header-accessors)
+`Warning` | [RFC 7234 sec 5.5](https://tools.ietf.org/html/rfc7234#section-5.5) | basic [header accessors](#header-accessors)
+`Date` | [RFC 7231 sec 7.1.1.2](https://tools.ietf.org/html/rfc7231#section-7.1.1.2) | basic [header accessors](#header-accessors)
 
 See also [Request HTTP Caching Headers](request.md#http-caching-headers).
 
-### Response Routing <a id="response-routing"/>
+### Response Routing
 
 See also [Request Routing](request.md#request-routing).
 
@@ -518,94 +520,94 @@ ctx.redirect('/cart');
 ctx.body = 'Redirecting to shopping cart';
 ```
 
-#### Response Routing Headers <a id="response-routing-headers"/>
+#### Response Routing Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
 `Location` | [RFC 7231 sec 7.1.2](https://tools.ietf.org/html/rfc7231#section-7.1.2) | [redirect](#responseredirect) 
-`Via` | [RFC 7230 sec 5.7.1](https://tools.ietf.org/html/rfc7230#section-5.7.1) | basic [header accessors](#basic-header-accessors)
+`Via` | [RFC 7230 sec 5.7.1](https://tools.ietf.org/html/rfc7230#section-5.7.1) | basic [header accessors](#header-accessors)
 
 See also [Request Routing Headers](request.md#request-routing-headers).
 
-### Utilities <a id="utilities"/>
+### Utilities
 
 #### response.socket
 
   Request socket.
 
-### Connection Management and HTTP Control <a id="http-control"/>
+### HTTP Control
 
 See also [Request Connection Management and HTTP Control](request.md#http-control).
 
-#### Connection Management and HTTP Control Headers <a id="http-control-headers"/>
+#### HTTP Control Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
-`Connection` | [RFC 7230 sec 6.1](https://tools.ietf.org/html/rfc7230#section-6.1) | basic [header accessors](#basic-header-accessors)
-`Upgrade` | [RFC 7230 sec 6.7](https://tools.ietf.org/html/rfc7230#section-6.7) | basic [header accessors](#basic-header-accessors)
-`Retry-After` | [RFC 7231 sec 7.1.3](https://tools.ietf.org/html/rfc7231#section-7.1.2) | basic [header accessors](#basic-header-accessors)
+`Connection` | [RFC 7230 sec 6.1](https://tools.ietf.org/html/rfc7230#section-6.1) | basic [header accessors](#header-accessors)
+`Upgrade` | [RFC 7230 sec 6.7](https://tools.ietf.org/html/rfc7230#section-6.7) | basic [header accessors](#header-accessors)
+`Retry-After` | [RFC 7231 sec 7.1.3](https://tools.ietf.org/html/rfc7231#section-7.1.2) | basic [header accessors](#header-accessors)
 
 See also [Request Connection Management and HTTP Control Headers](request.md#http-control-headers).
 
-### Content Negotiation <a id="content-negotiation"/>
+### Content Negotiation
 
 See also [Request Content Negotiation](request.md#content-negotiation).
 
-### Response Context <a id="response-context"/>
+### Response Context
 
 See also [Request Context](request.md#request-context).
 
-#### Response Context Headers <a id="response-context-headers"/>
+#### Response Context Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
-`Allow` | [RFC 7231 sec 7.4.1](https://tools.ietf.org/html/rfc7231#section-7.4.1) | basic [header accessors](#basic-header-accessors)
-`Server` | [RFC 7231 sec 7.4.1](https://tools.ietf.org/html/rfc7231#section-7.4.2) | basic [header accessors](#basic-header-accessors)
+`Allow` | [RFC 7231 sec 7.4.1](https://tools.ietf.org/html/rfc7231#section-7.4.1) | basic [header accessors](#header-accessors)
+`Server` | [RFC 7231 sec 7.4.1](https://tools.ietf.org/html/rfc7231#section-7.4.2) | basic [header accessors](#header-accessors)
 
 See also [Request Context Headers](request.md#request-context-headers).
 
-### Security and Privacy <a id="security-privacy"/>
+### Security and Privacy
 
-See also [Request Security and Privacy](request.md#security-privacy).
+See also [Request Security and Privacy](request.md#security-and-privacy).
 
-#### Security and Privacy Headers <a id="security-privacy-headers"/>
+#### Security and Privacy Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
-`X-Frame-Options` | [RFC 7034](https://tools.ietf.org/html/rfc7034) | basic [header accessors](#basic-header-accessors)
-`Strict-Transport-Security` | [RFC 6797](https://tools.ietf.org/html/rfc6797) | basic [header accessors](#basic-header-accessors)
+`X-Frame-Options` | [RFC 7034](https://tools.ietf.org/html/rfc7034) | basic [header accessors](#header-accessors)
+`Strict-Transport-Security` | [RFC 6797](https://tools.ietf.org/html/rfc6797) | basic [header accessors](#header-accessors)
 
-### Range Responses <a id="range-responses"/>
+### Range Responses
 
 See also [Range Requests](request.md#range-requests).
 
-#### Range Response Headers <a id="range-response-headers"/>
+#### Range Response Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
-`Accept-Ranges` | [RFC 7233 sec 2.3](https://tools.ietf.org/html/rfc7233#section-2.3) | basic [header accessors](#basic-header-accessors)
-`Content-Range` | [RFC 7233 4.2](https://tools.ietf.org/html/rfc7233#section-4.2) | basic [header accessors](#basic-header-accessors)
+`Accept-Ranges` | [RFC 7233 sec 2.3](https://tools.ietf.org/html/rfc7233#section-2.3) | basic [header accessors](#header-accessors)
+`Content-Range` | [RFC 7233 4.2](https://tools.ietf.org/html/rfc7233#section-4.2) | basic [header accessors](#header-accessors)
 
 See also [Range Request Headers](request.md#range-request-headers).
 
-### Authentication Challenges <a id="authentication challenges"/>
+### Authentication Challenges
 
 See also [Request Authentication Credentials](request.md#authentication-credentials).
 
-#### Authentication Challenge Headers <a id="authentication-challenge-headers"/>
+#### Authentication Challenge Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
-`WWW-Authenticate` | [RFC 7235 sec 4.1](https://tools.ietf.org/html/rfc7235#section-4.1) | basic [header accessors](#basic-header-accessors)
-`Proxy-Authenticate` | [RFC 7235 sec 4.3](https://tools.ietf.org/html/rfc7235#section-4.3) | basic [header accessors](#basic-header-accessors)
+`WWW-Authenticate` | [RFC 7235 sec 4.1](https://tools.ietf.org/html/rfc7235#section-4.1) | basic [header accessors](#header-accessors)
+`Proxy-Authenticate` | [RFC 7235 sec 4.3](https://tools.ietf.org/html/rfc7235#section-4.3) | basic [header accessors](#header-accessors)
 
 See also [Request Authentication Credential Headers](request.md#authentication-credential-headers).
 
-### Cookies <a id="cookies"/>
+### Cookies
 
 Support for request cookies is located at [context.Cookies](context#cookies).
 
-#### Cookie Headers <a id="cookie-headers"/>
+#### Cookie Headers
 
 Header | Specification | Support
 ------ | ------------- | -------
