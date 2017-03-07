@@ -26,18 +26,11 @@
 
 Access the http method from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1).
 
-#### Readable Properties
-
-Property | Type | Description
----------| ---- | -----------
-[method](#requestmethod) | `String` | The request's HTTP method (e.g. GET or POST)
-[idempotent](#requestidempotent) | `Boolean` | Is the request method idempotent?
-
-#### Writable Properties
-
-Property | Type | Description
----------| ---- | -----------
-[method](#requestmethod) | `String` | Set the request's HTTP method
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.method`](#requestmethod) | `String` | The request's HTTP method (e.g. GET or POST)
+[`request.method`](#requestmethod)` = ` | `String` | Set the request's HTTP method
+[`request.idempotent`](#requestidempotent) | `Boolean` | Is the request method idempotent?
 
 ### Request Target Overview
 
@@ -47,33 +40,26 @@ Access the request target from the [request line](https://tools.ietf.org/html/rf
 as well as the `Host` header and the protocol used for the request.
 This functionality is used for url construction and routing.
 
-#### Readable Properties
-
-Property | Type | Description
---------- | -------- | -----------
-[protocol](#requestprotocol) | `String` | The request protocol, "https" or "http".
-[secure](#requestsecure) | `Boolean` | `true` if the request was issued via TLS
-[host](#requesthost) | `String` | The value of the `Host` header.
-[hostname](#requesthostname) | `String` | The `host` without the port.
-[subdomains](#requestsubdomains) | `Array` | The `hostname`, split into subdomains 
-[url](#requesturl) | `String` | The request URL (full request target)
-[originalUrl](#requestoriginalurl) | `String` | The value of `url` prior to any request modifications
-[path](#requestpath) | `String` | The requested path
-[search](#requestsearch) | `String` | The raw query string with the `?`
-[querystring](#requestquerystring) | `String` | The raw query string void of `?`
-[query](#requestquery) | `Object` | The parsed query string
-[origin](#requestorigin) | `String` | The `protocol` and the `host` in `protocol:\\host` format
-[href](#requesthref) | `String` | The full `url`, prefixed by `origin`
-
-#### writable Properties
-
-Property | Type | Description
--------- | ------- | -----------
-[url](#requesturl) | `String` | Set the full request url, including query parameters
-[path](#requestpath) | `String` | Set request path
-[search](#requestsearch) | `String` | Set raw query string with (must include '?')
-[querystring](#requestquerystring) | `String` | Set raw query string (do not include '?')
-[query](#requestquery) | `String` | Set query-string to the given object
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.protocol`](#requestprotocol) | `String` | The request protocol, "https" or "http".
+[`request.secure`](#requestsecure) | `Boolean` | `true` if the request was issued via TLS
+[`request.host`](#requesthost) | `String` | The value of the `Host` header.
+[`request.hostname`](#requesthostname)| `String` | The `host` without the port.
+[`request.subdomains`](#requestsubdomains) | `Array` | The `hostname`, split into subdomains 
+[`request.url`](#requesturl) | `String` | The request URL (full request target)
+[`request.url`](#requesturl)`= ` | `String` | Set the full request url, including query parameters
+[`request.originalUrl`](#requestoriginalurl) | `String` | The value of `url` prior to any request modifications
+[`request.path`](#requestpath) | `String` | The requested path
+[`request.path`](#requestpath)` =` | ` String` | Set request path
+[`request.search`](#requestsearch) | `String` | The raw query string with the `?`
+[`request.search`](#requestsearch)` =` | `String` | Set raw query string with (must include '?')
+[`request.querystring`](#requestquerystring) | `String` | The raw query string void of `?`
+[`request.querystring`](#requestquerystring)`= ` | `String` | Set raw query string (do not include '?')
+[`request.query`](#requestquery) | `Object` | The parsed query string
+[`request.query`](#requestquery)`= ` | `String` | Set query-string to the given object
+[`request.origin`](#requestorigin) | `String` | The `protocol` and the `host` in `protocol:\\host` format
+[`request.href`](#requesthref) | `String` | The full `url`, prefixed by `origin`
 
 ### Header Accessor Overview
 
@@ -81,42 +67,31 @@ Property | Type | Description
 
 General methods and properties for accesing request headers.
 
-#### Readable Properties
-
-Property | Type | Description
--------- | ---- | -----------
-[header](#requestheader) | `Object` | All request headers as an object with header name as the key.
-[headers](#requestheaders) | `Object` | Alias of `header`
-
-#### Methods
-
-Method | Return Type | Description
-------- | ------- | -----------
-[get](#requestget) | `String` | Get a header value by name
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.header`](#requestheader) | `Object` | All request headers as an object with header name as the key.
+[`request.headers`](#requestheaders) | `Object` | Alias of `header`
+[`request.get`](#requestget)() | `String` | Get a header value by name
 
 ### HTTP Caching Overview
 
 [HTTP Caching Reference](#http-caching)
 
-#### Readable Properties
-
-Property | Type | Description
--------- | ---- | -----------
-[fresh](#requestfresh) | `Boolean` | Check if a request cache is "fresh"
-[stale](#requeststale) | `Boolean` | Inverse of `request.fresh`
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.fresh`](#requestfresh) | `Boolean` | Check if a request cache is "fresh"
+[`request.stale`](#requeststale) | `Boolean` | Inverse of `request.fresh`
 
 ### Content Negotiation Overview
 
 [Content Negotiation Reference](#content-negotiation)
 
-#### Methods
-
-Method | Return Type | Description
--------| ----------- | -----------
-[accepts](#requestaccepts) | `Array` or `String` or `false` | Check if the given MIME types are acceptable
-[acceptsEncodings](#requestacceptsencodings) | `Array` or `String` | Check if `encodings` are acceptable
-[acceptsCharsets](#requestacceptscharsets) | `Array` or `String` | Check if `charsets` are acceptable
-[acceptsLanguages](#requestacceptslanguages) | `Array` or `String` | Check if `langs` are acceptable
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.accepts`](#requestaccepts)`()` | `Array`<br> `String`<br> `false` | Check if the given MIME types are acceptable
+[`request.acceptsEncodings`](#requestacceptsencodings)`()` | `Array`<br> `String` | Check if `encodings` are acceptable
+[`request.acceptsCharsets`](#requestacceptscharsets)`()` | `Array`<br> `String` | Check if `charsets` are acceptable
+[`request.acceptsLanguages`](#requestacceptslanguages)`()` | `Array`<br> `String` | Check if `langs` are acceptable
 
 ### Request Body Overview
 
@@ -125,45 +100,31 @@ Method | Return Type | Description
 Access the [request body](https://tools.ietf.org/html/rfc7230#section-3.3) and
 `Content-Length` headers.
 
-#### Readable Properties
-
-Property | Type | Description
--------- | ---- | -----------
-[type](#requesttype) | `String` | The `Content-Type` header void of parameters such as "charset"
-[charset](#requestcharset) | `String` | The charset from the `Content-Type` header when present, or `undefined`
-[length](#requestlength) | `Number` | Return `Content-Length` header as a number when present, or `undefined`
-
-#### Methods
-
-Method | Type | Description
------- | ---- | -----------
-[is](#requestis) | `Boolean` |Check if the incoming request contains the `Content-Type` header field, and it contains any of the given MIME types. 
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.type`](#requesttype) | `String` | The `Content-Type` header void of parameters such as "charset"
+[`request.charset`](#requestcharset) | `String` | The charset from the `Content-Type` header when present, or `undefined`
+[`request.length`](#requestlength) | `Number` | Return `Content-Length` header as a number when present, or `undefined`
+[`request.is`](#requestis)`()` | `Boolean` |Check if the incoming request contains the `Content-Type` header field, and it contains any of the given MIME types. 
 
 ### Request Context Overview
 
 [Request Context Reference](#request-context)
 
-Property | Type | Description
----------| ---- | -----------
-[ip](#requestip) | `String` |  Request remote address. Supports `X-Forwarded-For`
-[ips](#requestips) | `Array` | The list of IPs from the `X-Forwarded-For` header  
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.ip`](#requestip) | `String` |  Request remote address. Supports `X-Forwarded-For`
+[`request.ips`](#requestips) | `Array` | The list of IPs from the `X-Forwarded-For` header  
 
 ### Utilities Overview
 
 [Utilities Reference](#utilities)
 
-#### Readable Properties
-
-Property | Type | Description
----------| ---- | -----------
-[socket](#requestsocket) | [net.Socket](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the request
-
-#### Methods
-
-Method | Type | Description
------- | ---- | -----------
-[inspect](#requestinspect) | `Object` | Not documented
-[toJSON](#requesttojson) | `Object` | Not documented
+Property / Method | Type | Description
+------------------| ---- | -----------
+[`request.socket`](#requestsocket) | [`net.Socket`](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the request
+[`request.inspect`](#requestinspect)`()`| `Object` | Not documented
+[`request.toJSON`](#requesttojson)`()` | `Object` | Not documented
 
 ### HTTP Control Overview
 
@@ -210,27 +171,27 @@ Access the request target from the [request line](https://tools.ietf.org/html/rf
 as well as the `Host` header and the protocol used for the request.
 This functionality is used for url construction and routing.
 
-#### request.protocol
+#### `request.protocol`
 
   Return request protocol, "https" or "http". Supports `X-Forwarded-Proto`
   when `app.proxy` is __true__.
 
-#### request.secure
+#### `request.secure`
 
   Shorthand for `ctx.protocol == "https"` to check if a request was
   issued via TLS.
 
-#### request.host
+#### `request.host`
 
   Get host (hostname:port) when present. Supports `X-Forwarded-Host`
   when `app.proxy` is __true__, otherwise `Host` is used.
 
-#### request.hostname
+#### `request.hostname`
 
   Get hostname when present. Supports `X-Forwarded-Host`
   when `app.proxy` is __true__, otherwise `Host` is used.
 
-#### request.subdomains
+#### `request.subdomains`
 
   Return subdomains as an array.
 
@@ -242,43 +203,43 @@ This functionality is used for url construction and routing.
   If `app.subdomainOffset` is not set, `ctx.subdomains` is `["ferrets", "tobi"]`.
   If `app.subdomainOffset` is 3, `ctx.subdomains` is `["tobi"]`.
 
-#### request.url
+#### `request.url`
 
   Get request URL.
 
-#### request.url = `String`
+#### `request.url = String`
 
   Set request URL, useful for url rewrites.
 
-#### request.originalUrl
+#### `request.originalUrl`
 
   Get request original URL.
 
-#### request.path
+#### `request.path`
 
   Get request pathname.
 
-#### request.path = `String`
+#### `request.path = String`
 
   Set request pathname and retain query-string when present.
 
-#### request.search
+#### `request.search`
 
   Get raw query string with the `?`.
 
-#### request.search = `String`
+#### `request.search = String`
 
   Set raw query string.
 
-#### request.querystring
+#### `request.querystring`
 
   Get raw query string void of `?`.
 
-#### request.querystring = `String`
+#### `request.querystring = String`
 
   Set raw query string.
 
-#### request.query
+#### `request.query`
 
   Get parsed query-string, returning an empty object when no
   query-string is present. Note that this getter does _not_
@@ -293,7 +254,7 @@ This functionality is used for url construction and routing.
 }
 ```
 
-#### request.query = `Object`
+#### `request.query = Object`
 
   Set query-string to the given object. Note that this
   setter does _not_ support nested objects.
@@ -302,7 +263,7 @@ This functionality is used for url construction and routing.
 ctx.query = { next: '/login' }
 ```
 
-#### request.origin
+#### `request.origin`
 
   Get origin of URL, include `protocol` and `host`.
 
@@ -311,7 +272,7 @@ ctx.request.origin
 // => http://example.com
 ```
 
-#### request.href
+#### `request.href`
 
   Get full request URL, include `protocol`, `host` and `url`.
 
@@ -338,15 +299,15 @@ See also [Response Routing Headers](response.md#response-routing-headers)
 
 See also [Response Header Accessors](response.md#http-caching-headers)
 
-#### request.header
+#### `request.header`
 
  Request header object.
 
-#### request.headers
+#### `request.headers`
 
  Request header object. Alias as `request.header`.
 
-#### request.get(field)
+#### `request.get(field)`
 
   Return request header.
 
@@ -354,7 +315,7 @@ See also [Response Header Accessors](response.md#http-caching-headers)
 
 See also [Response HTTP Caching](response.md#http-caching)
 
-#### request.fresh
+#### `request.fresh`
 
   Check if a request cache is "fresh", aka the contents have not changed. This
   method is for cache negotiation between `If-None-Match` / `ETag`, and `If-Modified-Since` and `Last-Modified`. It should be referenced after setting one or more of these response headers.
@@ -375,7 +336,7 @@ if (ctx.fresh) {
 ctx.body = yield db.find('something');
 ```
 
-#### request.stale
+#### `request.stale`
 
   Inverse of `request.fresh`.
 
@@ -407,7 +368,7 @@ If multiple types are supplied, the best match will be returned. If no matches a
 
 In the case of missing accept headers where any type is acceptable, the first type will be returned. Thus, the order of types you supply is important.
 
-#### request.accepts(types)
+#### `request.accepts(types)`
 
   Check if the given `type(s)` is acceptable, returning the best match when true, otherwise `false`. The `type` value may be one or more mime type string
   such as "application/json", the extension name
@@ -457,7 +418,7 @@ switch (ctx.accepts('json', 'html', 'text')) {
 }
 ```
 
-#### request.acceptsEncodings(encodings)
+#### `request.acceptsEncodings(encodings)`
 
   Check if `encodings` are acceptable, returning the best match when true, otherwise `false`. Note that you should include `identity` as one of the encodings!
 
@@ -481,7 +442,7 @@ ctx.acceptsEncodings();
 
   Note that the `identity` encoding (which means no encoding) could be unacceptable if the client explicitly sends `identity;q=0`. Although this is an edge case, you should still handle the case where this method returns `false`.
 
-#### request.acceptsCharsets(charsets)
+#### `request.acceptsCharsets(charsets)`
 
   Check if `charsets` are acceptable, returning
   the best match when true, otherwise `false`.
@@ -504,7 +465,7 @@ ctx.acceptsCharsets();
 // => ["utf-8", "utf-7", "iso-8859-1"]
 ```
 
-#### request.acceptsLanguages(langs)
+#### `request.acceptsLanguages(langs)`
 
   Check if `langs` are acceptable, returning
   the best match when true, otherwise `false`.
@@ -540,11 +501,11 @@ Header | Specification | Support
 
 See also [Response Body](response.md#response-body)
 
-#### request.length
+#### `request.length`
 
   Return request Content-Length as a number when present, or `undefined`.
 
-#### request.type
+#### `request.type`
 
   Get request `Content-Type` void of parameters such as "charset".
 
@@ -553,7 +514,7 @@ const ct = ctx.request.type
 // => "image/png"
 ```
 
-#### request.charset
+#### `request.charset`
 
   Get request charset when present, or `undefined`:
 
@@ -562,7 +523,7 @@ ctx.request.charset
 // => "utf-8"
 ```
 
-#### request.is(types...)
+#### `request.is(types...)`
 
   Check if the incoming request contains the "Content-Type"
   header field, and it contains any of the give mime `type`s.
@@ -616,12 +577,12 @@ See also [Response Body and Representation Metadata Headers](response.md#respons
 
 See also [Response Context](response.md#response-context)
 
-#### request.ip
+#### `request.ip`
 
   Request remote address. Supports `X-Forwarded-For` when `app.proxy`
   is __true__.
 
-#### request.ips
+#### `request.ips`
 
   When `X-Forwarded-For` is present and `app.proxy` is enabled an array
   of these ips is returned, ordered from upstream -> downstream. When disabled
@@ -639,13 +600,13 @@ See also [Response Context Headers](response.md#response-context-headers)
 
 ### Utilities
 
-#### request.socket
+#### `request.socket`
 
   Return the request socket.
 
-#### inspect()
+#### `inspect()`
 
-#### toJSON()
+#### `toJSON()`
 
 ### HTTP Control
 
