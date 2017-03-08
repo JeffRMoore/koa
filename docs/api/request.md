@@ -283,15 +283,15 @@ ctx.request.href
 
 ### Request Routing Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`Host` | [RFC 7230 sec 5.4](https://tools.ietf.org/html/rfc7230#section-5.4) | [host](#requesthost)
-`X-Forwarded-Host` | de facto standard | [host](#requesthost)
-`X-Forwarded-Proto` | de facto standard | [protocol](#requestprotocol)
-`X-Forwarded-For` | de facto standard | [ips](#requestips)
-`Forwarded` | [RFC 7239](https://tools.ietf.org/html/rfc7239) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Host`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host) | [RFC 7230 sec 5.4](https://tools.ietf.org/html/rfc7230#section-5.4) | [host](#requesthost)
+[`X-Forwarded-Host`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host) | de facto standard | [host](#requesthost)
+[`X-Forwarded-Proto`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto) | de facto standard | [protocol](#requestprotocol)
+[`X-Forwarded-For`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) | de facto standard | [ips](#requestips)
+[`Forwarded`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Forwarded) | [RFC 7239](https://tools.ietf.org/html/rfc7239) | basic [header accessors](#header-accessors)
 `Max-Forwards` | [RFC 7231 sec 5.1.2](https://tools.ietf.org/html/rfc7231#section-5.1.2) | basic [header accessors](#header-accessors)
-`Via` | [RFC 7230 sec 5.7.1](https://tools.ietf.org/html/rfc7230#section-5.7.1) | basic [header accessors](#header-accessors)
+[`Via`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Via) | [RFC 7230 sec 5.7.1](https://tools.ietf.org/html/rfc7230#section-5.7.1) | basic [header accessors](#header-accessors)
 
 See also [Response Routing Headers](response.md#response-routing-headers)
 
@@ -342,14 +342,14 @@ ctx.body = yield db.find('something');
 
 #### HTTP Caching Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`If-None-Match`  |  [RFC 7232 sec 3.2](https://tools.ietf.org/html/rfc7232#section-3.2) | [fresh](#requestfresh) or [stale](#requeststale)
-`If-Modified-Since`  |  [RFC 7232 sec 3.3](https://tools.ietf.org/html/rfc7232#section-3.3) | [fresh](#requestfresh) or [stale](#requeststale)
-`Cache-Control` | [RFC 7234 sec 5.2](https://tools.ietf.org/html/rfc7234#section-5.2) | [fresh](#requestfresh) or [stale](#requeststale)
-`If-Match` | [RFC 7232 sec 3.1](https://tools.ietf.org/html/rfc7232#section-3.1) | basic [header accessors](#header-accessors)
-`If-Unmodified-Since`  |  [RFC 7232 sec 3.4](https://tools.ietf.org/html/rfc7232#section-3.4) | basic [header accessors](#header-accessors)
-`Pragma` | [RFC 7434 Sec 5.4](https://tools.ietf.org/html/rfc7234#section-5.3) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`If-None-Match`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)  |  [RFC 7232 sec 3.2](https://tools.ietf.org/html/rfc7232#section-3.2) | [fresh](#requestfresh) or [stale](#requeststale)
+[`If-Modified-Since`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since)  |  [RFC 7232 sec 3.3](https://tools.ietf.org/html/rfc7232#section-3.3) | [fresh](#requestfresh) or [stale](#requeststale)
+[`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) | [RFC 7234 sec 5.2](https://tools.ietf.org/html/rfc7234#section-5.2) | basic [header accessors](#header-accessors)
+[`If-Match`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match) | [RFC 7232 sec 3.1](https://tools.ietf.org/html/rfc7232#section-3.1) | basic [header accessors](#header-accessors)
+[`If-Unmodified-Since`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Unmodified-Since)  |  [RFC 7232 sec 3.4](https://tools.ietf.org/html/rfc7232#section-3.4) | basic [header accessors](#header-accessors)
+[`Pragma`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Pragma) | [RFC 7434 Sec 5.4](https://tools.ietf.org/html/rfc7234#section-5.3) | basic [header accessors](#header-accessors)
 
 See also [Response HTTP Caching Headers](response.md#http-caching-headers)
 
@@ -490,12 +490,12 @@ ctx.acceptsLanguages();
 
 ### Content Negotiation Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`Accept` | [RFC 7231 sec 5.3.2](https://tools.ietf.org/html/rfc7231#section-5.3.2) | [accepts](#requestaccepts)
-`Accept-Charset` | [RFC 7231 sec 5.3.3](https://tools.ietf.org/html/rfc7231#section-5.3.3) | [acceptsCharsets](#requestacceptscharsets)
-`Accept-Encoding` | [RFC 7231 sec 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4) | [acceptsEncodings](#requestacceptsencodings)
-`Accept-Language` | [RFC 7231 sec 5.3.5](https://tools.ietf.org/html/rfc7231#section-5.3.5) | [acceptsLanguages](#requestacceptslanguages)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Accept`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) | [RFC 7231 sec 5.3.2](https://tools.ietf.org/html/rfc7231#section-5.3.2) | [accepts](#requestaccepts)
+[`Accept-Charset`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Charset) | [RFC 7231 sec 5.3.3](https://tools.ietf.org/html/rfc7231#section-5.3.3) | [acceptsCharsets](#requestacceptscharsets)
+[`Accept-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) | [RFC 7231 sec 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4) | [acceptsEncodings](#requestacceptsencodings)
+[`Accept-Language`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) | [RFC 7231 sec 5.3.5](https://tools.ietf.org/html/rfc7231#section-5.3.5) | [acceptsLanguages](#requestacceptslanguages)
 
 ### Request Body
 
@@ -560,16 +560,13 @@ if (ctx.is('image/*')) {
 
 Representation Metadata Headers
  
-Header | Specification | Support
------- | ------------- | -------
-`Content-Length` | [RFC 7230 sec 3.3.2](https://tools.ietf.org/html/rfc7230#section-3.3.2) | [length](#requestlength) 
-`Content-Type` | [RFC 7231 sec 3.1.1.5](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) | [type](#requesttype), [charset](#requestcharset), or [is](#requestis) 
-`Content-Encoding` | [RFC 7231 sec 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) | basic [header accessors](#header-accessors)
-`Content-Language` | [RFC 7231 sec 3.1.3.2](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) | basic [header accessors](#header-accessors)
-`Content-Location` | [RFC 7231 sec 3.1.4.2](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) | basic [header accessors](#header-accessors)
-`Transfer-Encoding` | [RFC 7230 sec 3.3.1](https://tools.ietf.org/html/rfc7230#section-3.3.1) | basic [header accessors](#header-accessors)
-`TE` | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#header-accessors)
-`Trailer` | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length) | [RFC 7230 sec 3.3.2](https://tools.ietf.org/html/rfc7230#section-3.3.2) | [body](#responsebody) or [length](#responselength)
+[`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) | [RFC 7231 sec 3.1.1.5](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) | [body](#responsebody) or [type](#responsetype) or [is](#responseis)
+[`Content-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding) | [RFC 7231 sec 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) | basic [header accessors](#header-accessors)
+[`Content-Language`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) | [RFC 7231 sec 3.1.3.2](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) | basic [header accessors](#header-accessors)
+[`Content-Location`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Location) | [RFC 7231 sec 3.1.4.2](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) | basic [header accessors](#header-accessors)
 
 See also [Response Body and Representation Metadata Headers](response.md#response-body-headers)
 
@@ -590,11 +587,11 @@ See also [Response Context](response.md#response-context)
 
 #### Request Context Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`Referer` | [RFC 7231 sec 5.5.2](https://tools.ietf.org/html/rfc7231#section-5.5.2) | [response.redirect](response#redirect)
-`User-Agent` | [RFC 7231 sec 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3) | basic [header accessors](#header-accessors)
-`From` | [RFC 7231 sec 5.5.1](https://tools.ietf.org/html/rfc7231#section-5.5.1) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Referer`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) | [RFC 7231 sec 5.5.2](https://tools.ietf.org/html/rfc7231#section-5.5.2) | [response.redirect](response#redirect)
+[`User-Agent`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent) | [RFC 7231 sec 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3) | basic [header accessors](#header-accessors)
+[`From`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/From) | [RFC 7231 sec 5.5.1](https://tools.ietf.org/html/rfc7231#section-5.5.1) | basic [header accessors](#header-accessors)
 
 See also [Response Context Headers](response.md#response-context-headers)
 
@@ -614,11 +611,14 @@ See also [Response Connection Management and HTTP Controls](response.md#http-con
 
 #### HTTP Control Headers <a id="http-control-headers"/>
 
-Header | Specification | Support
------- | ------------- | -------
-`Connection` | [RFC 7230 sec 6.1](https://tools.ietf.org/html/rfc7230#section-6.1) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Connection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Connection) | [RFC 7230 sec 6.1](https://tools.ietf.org/html/rfc7230#section-6.1) | basic [header accessors](#header-accessors)
 `Upgrade` | [RFC 7230 sec 6.7](https://tools.ietf.org/html/rfc7230#section-6.7) | basic [header accessors](#header-accessors)
-`Expect` | [RFC 7231 sec 5.1.1](https://tools.ietf.org/html/rfc7231#section-5.1.1) | basic [header accessors](#header-accessors)
+[`Expect`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect) | [RFC 7231 sec 5.1.1](https://tools.ietf.org/html/rfc7231#section-5.1.1) | basic [header accessors](#header-accessors)
+[`Transfer-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding) | [RFC 7230 sec 3.3.1](https://tools.ietf.org/html/rfc7230#section-3.3.1) | basic [header accessors](#header-accessors)
+[`TE`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/TE) | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#header-accessors)
+[`Trailer`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Trailer) | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#header-accessors)
 
 See also [Response Connection Management and HTTP Control Headers](response.md#http-control-headers).
 
@@ -626,17 +626,28 @@ See also [Response Connection Management and HTTP Control Headers](response.md#h
 
 See [Response Security and Privacy](response.md#security-and-privacy)
 
+#### Security and Privacy Headers
+
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) | [CORS Reccomendation](https://www.w3.org/TR/cors/) | basic [header accessors](#header-accessors)
+[`Access-Control-Request-Method`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Method) | [CORS Reccomendation](https://www.w3.org/TR/cors/) | basic [header accessors](#header-accessors) 
+[`Access-Control-Request-Headers`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Headers) | [CORS Reccomendation](https://www.w3.org/TR/cors/) | basic [header accessors](#header-accessors)
+[`Upgrade-Insecure-Requests`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade-Insecure-Requests) | [Candidate Recommendation](https://w3c.github.io/webappsec-upgrade-insecure-requests/) | basic [header accessors](#header-accessors)
+
+See also [Response Security and Privacy Headers](response.md#security-and-privacy-headers)
+
 ### Range Requests
 
 See also [Range Responses](response.md#range-responses)
 
 #### Range Request Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`Range` | [RFC 7233 Sec 3.1](https://tools.ietf.org/html/rfc7233#section-3.1) | basic [header accessors](#header-accessors)
-`If-Range`  |  [RFC 7233 sec 3.2](https://tools.ietf.org/html/rfc7233#section-3.2) | basic [header accessors](#header-accessors)
-`Content-Range` | [RFC 7233 4.2](https://tools.ietf.org/html/rfc7233#section-4.2) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Range`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range) | [RFC 7233 Sec 3.1](https://tools.ietf.org/html/rfc7233#section-3.1) | basic [header accessors](#header-accessors)
+[`If-Range`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range)  |  [RFC 7233 sec 3.2](https://tools.ietf.org/html/rfc7233#section-3.2) | basic [header accessors](#header-accessors)
+[`Content-Range`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range) | [RFC 7233 4.2](https://tools.ietf.org/html/rfc7233#section-4.2) | basic [header accessors](#header-accessors)
 
 See also [Range Response Headers](response.md#range-response-headers)
 
@@ -646,10 +657,10 @@ See also [Response Authentication Challenges](response.md#authentication-challen
 
 ### Authentication Credential Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`Authorization` | [RFC 7235 sec 4.2](https://tools.ietf.org/html/rfc7235#section-4.2) | basic [header accessors](#header-accessors)
-`Proxy-Authorization` | [RFC 7235 sec 4.4](https://tools.ietf.org/html/rfc7235#section-4.4) | basic [header accessors](#header-accessors)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) | [RFC 7235 sec 4.2](https://tools.ietf.org/html/rfc7235#section-4.2) | basic [header accessors](#header-accessors)
+[`Proxy-Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate) | [RFC 7235 sec 4.4](https://tools.ietf.org/html/rfc7235#section-4.4) | basic [header accessors](#header-accessors)
 
 See also [Response Authentication Challenge Headers](response.md#authentication-challenge-headers).
 
@@ -659,6 +670,6 @@ Support for request cookies is located at [context.Cookies](context#cookies).
 
 #### Cookie Headers
 
-Header | Specification | Support
------- | ------------- | -------
-`Cookie` | [RFC 6265](https://tools.ietf.org/html/rfc6265) | [context.Cookies](context#cookies)
+Header Field | Specification | Koa Support
+------------ | ------------- | -----------
+[`Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie) | [RFC 6265](https://tools.ietf.org/html/rfc6265) | [context.Cookies](context#cookies)
