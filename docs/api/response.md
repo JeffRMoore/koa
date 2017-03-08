@@ -168,7 +168,7 @@ _When does writing begin?_
 ```js
 const PassThrough = require('stream').PassThrough;
 
-app.use(function * (next) {
+app.use(function (ctx, next) {
   ctx.response.body = someHTTPStream.on('error', ctx.onerror).pipe(PassThrough());
 });
 ```
@@ -238,8 +238,8 @@ ctx.response.type = 'png';
 ```js
 const minify = require('html-minifier');
 
-app.use(function * minifyHTML(next) {
-  yield next;
+app.use(async function minifyHTML(ctx, next) {
+  await next();
 
   if (!ctx.response.is('html')) return;
 
