@@ -118,6 +118,9 @@ the node Stream and Buffer data types.
 
   Get response body.
 
+  An alias is available on the Context object for `response.body` allowing
+  `ctx.response.body` to be abbreviated as `ctx.body`.
+
 #### `response.body = String | Buffer | Stream | Object| null`
 
   Set response body to one of the following types:
@@ -134,6 +137,9 @@ _When is it 200 and when is it 204?_
 _What happens if a Number or Boolean is used?_
 
 _When does writing begin?_
+
+  An alias is available on the Context object for `response.body` allowing
+  `ctx.response.body` to be abbreviated as `ctx.body`.
 
 ##### String
 
@@ -163,7 +169,7 @@ _When does writing begin?_
 const PassThrough = require('stream').PassThrough;
 
 app.use(function * (next) {
-  ctx.body = someHTTPStream.on('error', ctx.onerror).pipe(PassThrough());
+  ctx.response.body = someHTTPStream.on('error', ctx.onerror).pipe(PassThrough());
 });
 ```
 
@@ -175,30 +181,39 @@ app.use(function * (next) {
 #### `response.length`
 
   Return response `Content-Length` as a number when present, or deduce
-  from `ctx.body` when possible, or `undefined`.
+  from `ctx.response.body` when possible, or `undefined`.
+
+  An alias is available on the Context object for `response.length` allowing
+  `ctx.response.length` to be abbreviated as `ctx.length`.
 
 #### `response.length = Number`
 
   Set response `Content-Length` to the given value.
+
+  An alias is available on the Context object for `response.length` allowing
+  `ctx.response.length` to be abbreviated as `ctx.length`.
 
 #### `response.type`
 
   Get response `Content-Type` void of parameters such as "charset".
 
 ```js
-const ct = ctx.type;
+const ct = ctx.response.type;
 // => "image/png"
 ```
+
+  An alias is available on the Context object for `response.type` allowing
+  `ctx.response.type` to be abbreviated as `ctx.type`.
 
 #### `response.type = String`
 
   Set response `Content-Type` via mime string or file extension.
 
 ```js
-ctx.type = 'text/plain; charset=utf-8';
-ctx.type = 'image/png';
-ctx.type = '.png';
-ctx.type = 'png';
+ctx.response.type = 'text/plain; charset=utf-8';
+ctx.response.type = 'image/png';
+ctx.response.type = '.png';
+ctx.response.type = 'png';
 ```
 
   Note: when appropriate a `charset` is selected for you, for
@@ -207,6 +222,9 @@ ctx.type = 'png';
   no charset is assigned.
   
   Powered by [content-type](https://github.com/jshttp/content-type)
+
+  An alias is available on the Context object for `response.type` allowing
+  `ctx.response.type` to be abbreviated as `ctx.type`.
 
 #### `response.is(types...)`
 
@@ -225,11 +243,11 @@ app.use(function * minifyHTML(next) {
 
   if (!ctx.response.is('html')) return;
 
-  let body = ctx.body;
+  let body = ctx.response.body;
   if (!body || body.pipe) return;
 
   if (Buffer.isBuffer(body)) body = body.toString();
-  ctx.body = minify(body);
+  ctx.response.body = minify(body);
 });
 ```
   Very similar to [`request.is`](request.md#requestis).
@@ -241,6 +259,9 @@ app.use(function * minifyHTML(next) {
   to prompt for download. Optionally specify the `filename` of the
   download.
   Powered by [content-disposition](https://github.com/jshttp/content-disposition).
+  
+  An alias is available on the Context object for `response.attachment` allowing
+  `ctx.response.attachment` to be abbreviated as `ctx.attachment`.
 
 #### Response Body Headers
 
@@ -263,6 +284,9 @@ determining the proper message to correspond to a given status.
 #### `response.status`
 
   Get response status. By default, `response.status` is set to `404` unlike node's `res.statusCode` which defaults to `200`.
+  
+  An alias is available on the Context object for `response.status` allowing
+  `ctx.response.status` to be abbreviated as `ctx.status`.
 
 #### `response.status = Number`
 
@@ -329,14 +353,23 @@ __NOTE__: don't worry too much about memorizing these strings,
 if you have a typo an error will be thrown, displaying this list
 so you can make a correction.
 
+  An alias is available on the Context object for `response.status` allowing
+  `ctx.response.status` to be abbreviated as `ctx.status`.
+
 #### `response.message`
 
   Get response status message. By default, `response.message` is
   associated with [`response.status`](#response.status).
 
+  An alias is available on the Context object for `response.message` allowing
+  `ctx.response.message` to be abbreviated as `ctx.message`.
+
 #### `response.message = String`
 
   Set response status message to the given value.
+
+  An alias is available on the Context object for `response.message` allowing
+  `ctx.response.message` to be abbreviated as `ctx.message`.
 
 ### Header Accessors
 
@@ -360,12 +393,15 @@ Headers are buffered until the entire header for the response is written.  _Afte
   Check if a response header has already been sent. Useful for seeing
   if the client may be notified on error.
 
+  An alias is available on the Context object for `response.headerSent` allowing
+  `ctx.response.headerSent` to be abbreviated as `ctx.headerSent`.
+
 #### `response.get(field)`
 
   Get a response header field value with case-insensitive `field`.
 
 ```js
-const etag = ctx.get('ETag');
+const etag = ctx.respnse.get('ETag');
 ```
 
 #### `response.set(field, value)`
@@ -373,15 +409,18 @@ const etag = ctx.get('ETag');
   Set response header `field` to `value`:
 
 ```js
-ctx.set('Cache-Control', 'no-cache');
+ctx.response.set('Cache-Control', 'no-cache');
 ```
+
+  An alias is available on the Context object for `response.set` allowing
+  `ctx.response.set` to be abbreviated as `ctx.set`.
 
 #### `response.set(fields)`
 
   Set several response header `fields` with an object:
 
 ```js
-ctx.set({
+ctx.response.set({
   'Etag': '1234',
   'Last-Modified': date
 });
@@ -392,16 +431,25 @@ ctx.set({
   Append additional header `field` with value `value`.
 
 ```js
-ctx.append('Link', '<http://127.0.0.1/>');
+ctx.response.append('Link', '<http://127.0.0.1/>');
 ```
+
+  An alias is available on the Context object for `response.append` allowing
+  `ctx.response.append` to be abbreviated as `ctx.append`.
 
 #### `response.remove(field)`
 
   Remove header `field`.
 
+  An alias is available on the Context object for `response.remove` allowing
+  `ctx.response.remove` to be abbreviated as `ctx.remove`.
+
 #### `response.flushHeaders()`
 
   Flush any set headers, and begin the body.
+
+  An alias is available on the Context object for `response.flushHeaders` allowing
+  `ctx.response.flushHeaders` to be abbreviated as `ctx.flushHeaders`.
 
 ### HTTP Caching
 
@@ -415,6 +463,9 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
   Return the `Last-Modified` header as a `Date`, if it exists.
 
+  An alias is available on the Context object for `response.lastModified` allowing
+  `ctx.response.lastModified` to be abbreviated as `ctx.lastModified`.
+
 #### `response.lastModified = String | Date`
 
   Set the `Last-Modified` header as an appropriate UTC string.
@@ -424,21 +475,34 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 ctx.response.lastModified = new Date();
 ```
 
+  An alias is available on the Context object for `response.lastModified` allowing
+  `ctx.response.lastModified` to be abbreviated as `ctx.lastModified`.
+
 #### `response.etag`
 
 NOT DOCUMENTED
+
+  An alias is available on the Context object for `response.etag` allowing
+  `ctx.response.etag` to be abbreviated as `ctx.etag`.
 
 #### `response.etag = String`
 
   Set the `ETag` header field of a response including the wrapped `"`s.
 
 ```js
-ctx.response.etag = crypto.createHash('md5').update(ctx.body).digest('hex');
+ctx.response.etag = crypto.createHash('md5').update(ctx.response.body).digest('hex');
 ```
+
+  An alias is available on the Context object for `response.etag` allowing
+  `ctx.response.etag` to be abbreviated as `ctx.etag`.
 
 #### `response.vary(field)`
 
-  Vary on `field`.  Powered by [vary](https://github.com/jshttp/vary)
+  Vary on `field`.  Powered by [vary](https://github.com/jshttp/vary).
+  
+  An alias is available on the Context object for `response.vary` allowing
+  `ctx.response.vary` to be abbreviated as `ctx.vary`.
+
 
 #### HTTP Caching Headers
 
@@ -470,20 +534,23 @@ See also [Request Routing](request.md#request-routing).
   `alt` is not specified, `"/"` is used.
 
 ```js
-ctx.redirect('back');
-ctx.redirect('back', '/index.html');
-ctx.redirect('/login');
-ctx.redirect('http://google.com');
+ctx.response.redirect('back');
+ctx.response.redirect('back', '/index.html');
+ctx.response.redirect('/login');
+ctx.response.redirect('http://google.com');
 ```
 
   To alter the default status of `302`, simply assign the status
   before or after this call. To alter the body, assign it after this call:
 
 ```js
-ctx.status = 301;
-ctx.redirect('/cart');
-ctx.body = 'Redirecting to shopping cart';
+ctx.response.status = 301;
+ctx.response.redirect('/cart');
+ctx.response.body = 'Redirecting to shopping cart';
 ```
+
+  An alias is available on the Context object for `response.redirect` allowing
+  `ctx.response.redirect` to be abbreviated as `ctx.redirect`.
 
 #### Response Routing Headers
 
@@ -507,6 +574,21 @@ See also [Request Routing Headers](request.md#request-routing-headers).
 #### `response.socket`
 
   Request socket.
+
+#### `inspect`
+
+  MISSING DOCUMENTATION
+
+#### `toJSON`
+
+  MISSING DOCUMENTATION
+
+#### `response.writable`
+
+  MISSING DOCUMENTATION
+
+  An alias is available on the Context object for `response.writable` allowing
+  `ctx.response.writable` to be abbreviated as `ctx.writable`.
 
 ### HTTP Control
 

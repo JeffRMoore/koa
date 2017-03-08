@@ -138,14 +138,23 @@ Access the http method from the [request line](https://tools.ietf.org/html/rfc72
 
   Request method.
 
+  An alias is available on the Context object for `request.method` allowing
+  `ctx.request.method` to be abbreviated as `ctx.method`.
+
 #### request.method = `String`
 
   Set request method, useful for implementing middleware
   such as `methodOverride()`.
 
+  An alias is available on the Context object for `request.method` allowing
+  `ctx.request.method` to be abbreviated as `ctx.method`.
+
 #### request.idempotent
 
   Check if the request is idempotent.
+
+  An alias is available on the Context object for `request.idempotent` allowing
+  `ctx.request.idempotent` to be abbreviated as `ctx.idempotent`.
 
 ### Request Target
 
@@ -162,20 +171,32 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   Return request protocol, "https" or "http". Supports `X-Forwarded-Proto`
   when `app.proxy` is __true__.
 
+  An alias is available on the Context object for `request.protocol` allowing
+  `ctx.request.protocol` to be abbreviated as `ctx.protocol`.
+
 #### `request.secure`
 
-  Shorthand for `ctx.protocol == "https"` to check if a request was
+  Shorthand for `ctx.request.protocol == "https"` to check if a request was
   issued via TLS.
+
+  An alias is available on the Context object for `request.secure` allowing
+  `ctx.request.secure` to be abbreviated as `ctx.secure`.
 
 #### `request.host`
 
   Get host (hostname:port) when present. Supports `X-Forwarded-Host`
   when `app.proxy` is __true__, otherwise `Host` is used.
 
+  An alias is available on the Context object for `request.host` allowing
+  `ctx.request.host` to be abbreviated as `ctx.host`.
+
 #### `request.hostname`
 
   Get hostname when present. Supports `X-Forwarded-Host`
   when `app.proxy` is __true__, otherwise `Host` is used.
+
+  An alias is available on the Context object for `request.hostname` allowing
+  `ctx.request.hostname` to be abbreviated as `ctx.hostname`.
 
 #### `request.subdomains`
 
@@ -186,16 +207,25 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   parts of the host. This can be changed by setting `app.subdomainOffset`.
 
   For example, if the domain is `"tobi.ferrets.example.com"`:
-  If `app.subdomainOffset` is not set, `ctx.subdomains` is `["ferrets", "tobi"]`.
-  If `app.subdomainOffset` is 3, `ctx.subdomains` is `["tobi"]`.
+  If `app.subdomainOffset` is not set, `ctx.request.subdomains` is `["ferrets", "tobi"]`.
+  If `app.subdomainOffset` is 3, `ctx.request.subdomains` is `["tobi"]`.
+
+  An alias is available on the Context object for `request.subdomains` allowing
+  `ctx.request.subdomains` to be abbreviated as `ctx.subdomains`.
 
 #### `request.url`
 
   Get request URL.
 
+  An alias is available on the Context object for `request.url` allowing
+  `ctx.request.url` to be abbreviated as `ctx.url`.
+
 #### `request.url = String`
 
   Set request URL, useful for url rewrites.
+
+  An alias is available on the Context object for `request.url` allowing
+  `ctx.request.url` to be abbreviated as `ctx.url`.
 
 #### `request.originalUrl`
 
@@ -205,25 +235,43 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
   Get request pathname.
 
+  An alias is available on the Context object for `request.path` allowing
+  `ctx.request.path` to be abbreviated as `ctx.path`.
+
 #### `request.path = String`
 
   Set request pathname and retain query-string when present.
+
+  An alias is available on the Context object for `request.path` allowing
+  `ctx.request.path` to be abbreviated as `ctx.path`.
 
 #### `request.search`
 
   Get raw query string with the `?`.
 
+  An alias is available on the Context object for `request.search` allowing
+  `ctx.request.search` to be abbreviated as `ctx.search`.
+
 #### `request.search = String`
 
   Set raw query string.
+
+  An alias is available on the Context object for `request.search` allowing
+  `ctx.request.search` to be abbreviated as `ctx.search`.
 
 #### `request.querystring`
 
   Get raw query string void of `?`.
 
+  An alias is available on the Context object for `request.querystring` allowing
+  `ctx.request.querystring` to be abbreviated as `ctx.querystring`.
+
 #### `request.querystring = String`
 
   Set raw query string.
+
+  An alias is available on the Context object for `request.querystring` allowing
+  `ctx.request.querystring` to be abbreviated as `ctx.querystring`.
 
 #### `request.query`
 
@@ -240,23 +288,32 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 }
 ```
 
+  An alias is available on the Context object for `request.query` allowing
+  `ctx.request.query` to be abbreviated as `ctx.query`.
+
 #### `request.query = Object`
 
   Set query-string to the given object. Note that this
   setter does _not_ support nested objects.
 
 ```js
-ctx.query = { next: '/login' }
+ctx.request.query = { next: '/login' }
 ```
+
+  An alias is available on the Context object for `request.query` allowing
+  `ctx.request.query` to be abbreviated as `ctx.query`.
 
 #### `request.origin`
 
-  Get origin of URL, include `protocol` and `host`.
+  Get origin of URL, include `protocol` and `host`. Unrelated to the CORS 'Origin' header.
 
 ```js
 ctx.request.origin
 // => http://example.com
 ```
+
+  An alias is available on the Context object for `request.origin` allowing
+  `ctx.request.origin` to be abbreviated as `ctx.origin`.
 
 #### `request.href`
 
@@ -266,6 +323,9 @@ ctx.request.origin
 ctx.request.href
 // => http://example.com/foo/bar?q=1
 ```
+
+  An alias is available on the Context object for `request.href` allowing
+  `ctx.request.href` to be abbreviated as `ctx.href`.
 
 ### Request Routing Headers
 
@@ -292,13 +352,22 @@ header fields.
 
  Request header object.
 
+  An alias is available on the Context object for `request.header` allowing
+  `ctx.request.header` to be abbreviated as `ctx.header`.
+
 #### `request.headers`
 
  Request header object. Alias of [`request.header`](#requestheader).
 
+  An alias is available on the Context object for `request.headers` allowing
+  `ctx.request.headers` to be abbreviated as `ctx.headers`.
+
 #### `request.get(field)`
 
   Return request header.
+
+  An alias is available on the Context object for `request.get` allowing
+  `ctx.request.get` to be abbreviated as `ctx.get`.
 
 ### HTTP Caching
 
@@ -315,25 +384,31 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 ```js
 // freshness check requires status 20x or 304
-ctx.status = 200;
-ctx.set('ETag', '123');
+ctx.response.status = 200;
+ctx.response.set('ETag', '123');
 
 // cache is ok
-if (ctx.fresh) {
-  ctx.status = 304;
+if (ctx.request.fresh) {
+  ctx.response.status = 304;
   return;
 }
 
 // cache is stale
 // fetch new data
-ctx.body = yield db.find('something');
+ctx.response.body = yield db.find('something');
 ```
 
 Powered by [Fresh](https://github.com/jshttp/fresh).
 
+  An alias is available on the Context object for `request.fresh` allowing
+  `ctx.request.fresh` to be abbreviated as `ctx.fresh`.
+
 #### `request.stale`
 
   Inverse of `request.fresh`.
+
+  An alias is available on the Context object for `request.stale` allowing
+  `ctx.request.stale` to be abbreviated as `ctx.stale`.
 
 #### HTTP Caching Headers
 
@@ -371,41 +446,41 @@ In the case of missing accept headers where any type is acceptable, the first ty
 
 ```js
 // Accept: text/html
-ctx.accepts('html');
+ctx.request.accepts('html');
 // => "html"
 
 // Accept: text/*, application/json
-ctx.accepts('html');
+ctx.request.accepts('html');
 // => "html"
-ctx.accepts('text/html');
+ctx.request.accepts('text/html');
 // => "text/html"
-ctx.accepts('json', 'text');
+ctx.request.accepts('json', 'text');
 // => "json"
-ctx.accepts('application/json');
+ctx.request.accepts('application/json');
 // => "application/json"
 
 // Accept: text/*, application/json
-ctx.accepts('image/png');
-ctx.accepts('png');
+ctx.request.accepts('image/png');
+ctx.request.accepts('png');
 // => false
 
 // Accept: text/*;q=.5, application/json
-ctx.accepts(['html', 'json']);
-ctx.accepts('html', 'json');
+ctx.request.accepts(['html', 'json']);
+ctx.request.accepts('html', 'json');
 // => "json"
 
 // No Accept header
-ctx.accepts('html', 'json');
+ctx.request.accepts('html', 'json');
 // => "html"
-ctx.accepts('json', 'html');
+ctx.request.accepts('json', 'html');
 // => "json"
 ```
 
-  You may call `ctx.accepts()` as many times as you like,
+  You may call `ctx.reqeust.accepts()` as many times as you like,
   or use a switch:
 
 ```js
-switch (ctx.accepts('json', 'html', 'text')) {
+switch (ctx.request.accepts('json', 'html', 'text')) {
   case 'json': break;
   case 'html': break;
   case 'text': break;
@@ -413,16 +488,19 @@ switch (ctx.accepts('json', 'html', 'text')) {
 }
 ```
 
+  An alias is available on the Context object for `request.accepts` allowing
+  `ctx.request.accepts` to be abbreviated as `ctx.accepts`.
+
 #### `request.acceptsEncodings(encodings)`
 
   Check if `encodings` are acceptable, returning the best match when true, otherwise `false`. Note that you should include `identity` as one of the encodings!
 
 ```js
 // Accept-Encoding: gzip
-ctx.acceptsEncodings('gzip', 'deflate', 'identity');
+ctx.request.acceptsEncodings('gzip', 'deflate', 'identity');
 // => "gzip"
 
-ctx.acceptsEncodings(['gzip', 'deflate', 'identity']);
+ctx.request.acceptsEncodings(['gzip', 'deflate', 'identity']);
 // => "gzip"
 ```
 
@@ -431,11 +509,14 @@ ctx.acceptsEncodings(['gzip', 'deflate', 'identity']);
 
 ```js
 // Accept-Encoding: gzip, deflate
-ctx.acceptsEncodings();
+ctx.request.acceptsEncodings();
 // => ["gzip", "deflate", "identity"]
 ```
 
   Note that the `identity` encoding (which means no encoding) could be unacceptable if the client explicitly sends `identity;q=0`. Although this is an edge case, you should still handle the case where this method returns `false`.
+
+  An alias is available on the Context object for `request.acceptsEncodings` allowing
+  `ctx.request.acceptsEncodings` to be abbreviated as `ctx.acceptsEncodings`.
 
 #### `request.acceptsCharsets(charsets)`
 
@@ -444,10 +525,10 @@ ctx.acceptsEncodings();
 
 ```js
 // Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5
-ctx.acceptsCharsets('utf-8', 'utf-7');
+ctx.request.acceptsCharsets('utf-8', 'utf-7');
 // => "utf-8"
 
-ctx.acceptsCharsets(['utf-7', 'utf-8']);
+ctx.request.acceptsCharsets(['utf-7', 'utf-8']);
 // => "utf-8"
 ```
 
@@ -456,9 +537,12 @@ ctx.acceptsCharsets(['utf-7', 'utf-8']);
 
 ```js
 // Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5
-ctx.acceptsCharsets();
+ctx.request.acceptsCharsets();
 // => ["utf-8", "utf-7", "iso-8859-1"]
 ```
+
+  An alias is available on the Context object for `request.acceptsCharsets` allowing
+  `ctx.request.acceptsCharsets` to be abbreviated as `ctx.acceptsCharsets`.
 
 #### `request.acceptsLanguages(langs)`
 
@@ -467,10 +551,10 @@ ctx.acceptsCharsets();
 
 ```js
 // Accept-Language: en;q=0.8, es, pt
-ctx.acceptsLanguages('es', 'en');
+ctx.request.acceptsLanguages('es', 'en');
 // => "es"
 
-ctx.acceptsLanguages(['en', 'es']);
+ctx.request.acceptsLanguages(['en', 'es']);
 // => "es"
 ```
 
@@ -479,9 +563,12 @@ ctx.acceptsLanguages(['en', 'es']);
 
 ```js
 // Accept-Language: en;q=0.8, es, pt
-ctx.acceptsLanguages();
+ctx.request.acceptsLanguages();
 // => ["es", "pt", "en"]
 ```
+
+  An alias is available on the Context object for `request.acceptsLanguages` allowing
+  `ctx.request.acceptsLanguages` to be abbreviated as `ctx.acceptsLanguages`.
 
 ### Content Negotiation Headers
 
@@ -533,28 +620,31 @@ ctx.request.charset
 
 ```js
 // With Content-Type: text/html; charset=utf-8
-ctx.is('html'); // => 'html'
-ctx.is('text/html'); // => 'text/html'
-ctx.is('text/*', 'text/html'); // => 'text/html'
+ctx.request.is('html'); // => 'html'
+ctx.request.is('text/html'); // => 'text/html'
+ctx.request.is('text/*', 'text/html'); // => 'text/html'
 
 // When Content-Type is application/json
-ctx.is('json', 'urlencoded'); // => 'json'
-ctx.is('application/json'); // => 'application/json'
-ctx.is('html', 'application/*'); // => 'application/json'
+ctx.request.is('json', 'urlencoded'); // => 'json'
+ctx.request.is('application/json'); // => 'application/json'
+ctx.request.is('html', 'application/*'); // => 'application/json'
 
-ctx.is('html'); // => false
+ctx.request.is('html'); // => false
 ```
 
   For example if you want to ensure that
   only images are sent to a given route:
 
 ```js
-if (ctx.is('image/*')) {
+if (ctx.request.is('image/*')) {
   // process
 } else {
   ctx.throw(415, 'images only!');
 }
 ```
+
+  An alias is available on the Context object for `request.get` allowing
+  `ctx.request.get` to be abbreviated as `ctx.get`.
 
 #### Request Body Headers
  
@@ -579,11 +669,17 @@ Request context describes the issuer of the request.
   Request remote address. Supports `X-Forwarded-For` when `app.proxy`
   is __true__.
 
+  An alias is available on the Context object for `request.ip` allowing
+  `ctx.request.ip` to be abbreviated as `ctx.ip`.
+
 #### `request.ips`
 
   When `X-Forwarded-For` is present and `app.proxy` is enabled an array
   of these ips is returned, ordered from upstream -> downstream. When disabled
   an empty array is returned.
+
+  An alias is available on the Context object for `request.ips` allowing
+  `ctx.request.ips` to be abbreviated as `ctx.ips`.
 
 #### Request Context Headers
 
@@ -608,6 +704,9 @@ See also [Response Context Headers](response.md#response-context-headers)
 #### `request.socket`
 
   Return the request socket.
+
+  An alias is available on the Context object for `request.socket` allowing
+  `ctx.request.socket` to be abbreviated as `ctx.socket`.
 
 #### `inspect()`
 
