@@ -126,26 +126,6 @@ Property / Method | Type | Description
 [`request.inspect`](#requestinspect)`()`| `Object` | Not documented
 [`request.toJSON`](#requesttojson)`()` | `Object` | Not documented
 
-### HTTP Control Overview
-
-[Connection Management and HTTP Controls Reference](#http-control)
-
-### Security and Privacy Overview
-
-[Security and Privacy](#security-and-privacy)
-
-### Range Requests Overview
-
-[Range Request Reference](#range-requests)
-
-### Authentication Credential Overview
-
-[Authentication Credential Reference](#authentication-credentials)
-
-### Cookies Overview
-
-[Cookies Reference](#cookies)
-
 ## API Reference
 
 ### Request Method
@@ -170,6 +150,10 @@ Access the http method from the [request line](https://tools.ietf.org/html/rfc72
 Access the request target from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1)
 as well as the `Host` header and the protocol used for the request.
 This functionality is used for url construction and routing.
+
+Koa does not bundle support for routing requests beased on the request target.
+Check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### `request.protocol`
 
@@ -299,6 +283,9 @@ See also [Response Routing Headers](response.md#response-routing-headers)
 
 See also [Response Header Accessors](response.md#http-caching-headers)
 
+Basic methods for accessing the request header and the unparsed value of request
+header fields.
+
 #### `request.header`
 
  Request header object.
@@ -314,6 +301,10 @@ See also [Response Header Accessors](response.md#http-caching-headers)
 ### HTTP Caching
 
 See also [Response HTTP Caching](response.md#http-caching)
+
+Koa has basic support for checking conditional headers related to caching.
+For more comprehensive support, check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### `request.fresh`
 
@@ -335,6 +326,8 @@ if (ctx.fresh) {
 // fetch new data
 ctx.body = yield db.find('something');
 ```
+
+Powered by [Fresh](https://github.com/jshttp/fresh).
 
 #### `request.stale`
 
@@ -501,6 +494,11 @@ Header Field | Specification | Koa Support
 
 See also [Response Body](response.md#response-body)
 
+Koa has support for setting representation metadata headers, but does not bundle support
+for parsing the body of a request, such as for submitted forms or REST API
+payloads.  check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
+
 #### `request.length`
 
   Return request Content-Length as a number when present, or `undefined`.
@@ -557,8 +555,6 @@ if (ctx.is('image/*')) {
 ```
 
 #### Request Body Headers
-
-Representation Metadata Headers
  
 Header Field | Specification | Koa Support
 ------------ | ------------- | -----------
@@ -573,6 +569,8 @@ See also [Response Body and Representation Metadata Headers](response.md#respons
 ### Request Context
 
 See also [Response Context](response.md#response-context)
+
+Request context describes the issuer of the request.
 
 #### `request.ip`
 
@@ -603,13 +601,19 @@ See also [Response Context Headers](response.md#response-context-headers)
 
 #### `inspect()`
 
+MISSING DOCUMENTATION
+
 #### `toJSON()`
+
+MISSING DOCUMENTATION
 
 ### HTTP Control
 
 See also [Response Connection Management and HTTP Controls](response.md#http-control).
 
-#### HTTP Control Headers <a id="http-control-headers"/>
+HTTP Control headers are usually handled by node's [http](https://nodejs.org/api/http.html) module.
+
+#### HTTP Control Headers
 
 Header Field | Specification | Koa Support
 ------------ | ------------- | -----------
@@ -620,11 +624,14 @@ Header Field | Specification | Koa Support
 [`TE`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/TE) | [RFC 7230 sec 4.3](https://tools.ietf.org/html/rfc7230#section-4.3) | basic [header accessors](#header-accessors)
 [`Trailer`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Trailer) | [RFC 7230 sec 4.4](https://tools.ietf.org/html/rfc7230#section-4.4) | basic [header accessors](#header-accessors)
 
-See also [Response Connection Management and HTTP Control Headers](response.md#http-control-headers).
+See also [Response HTTP Control Headers](response.md#http-control-headers).
 
 ### Security and Privacy
 
 See [Response Security and Privacy](response.md#security-and-privacy)
+
+Koa does not bundle support for CORS or upgrading SSL requests, check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### Security and Privacy Headers
 
@@ -641,6 +648,9 @@ See also [Response Security and Privacy Headers](response.md#security-and-privac
 
 See also [Range Responses](response.md#range-responses)
 
+Koa does not bundle support for range requests, check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
+
 #### Range Request Headers
 
 Header Field | Specification | Koa Support
@@ -655,7 +665,10 @@ See also [Range Response Headers](response.md#range-response-headers)
 
 See also [Response Authentication Challenges](response.md#authentication-challenges)
 
-### Authentication Credential Headers
+Koa does not bundle support for [HTTP authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication), check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
+
+#### Authentication Credential Headers
 
 Header Field | Specification | Koa Support
 ------------ | ------------- | -----------
@@ -666,7 +679,7 @@ See also [Response Authentication Challenge Headers](response.md#authentication-
 
 ### Cookies
 
-Support for request cookies is located at [context.Cookies](context#cookies).
+Support for request cookies is located on the context object and documentated at [context.Cookies](context#cookies).
 
 #### Cookie Headers
 

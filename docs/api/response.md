@@ -24,6 +24,9 @@
 
 [Response Body Reference](#response-body)
 
+Read and set the body of the HTTP response,
+as well as basic representation metadata headers.
+
 Property / Method | Type | Description
 ------------------| ---- | -----------
 [`body`](#responsebody) | `String`<br> `Buffer`<br> `Object`<br> `Stream` | The response body
@@ -39,6 +42,8 @@ Property / Method | Type | Description
 
 [Status Line Reference](#status-line)
 
+Read and set the HTTP response status and proper corresponding status message.
+
 Property / Method | Type | Description
 ------------------| ---- | -----------
 [`request.status`](#responsestuatus) | `Number` | The response status
@@ -49,6 +54,8 @@ Property / Method | Type | Description
 ### Header Accessor Overview
 
 [Basic Header Accessor Reference](#header-accessors)
+
+Basic support for emitting and manipulating HTTP header fields.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
@@ -64,6 +71,8 @@ Property / Method | Type | Description
 ### HTTP Caching Overview
 
 [HTTP Caching Reference](#http-caching)
+
+Emit basic caching related HTTP headers.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
@@ -85,8 +94,6 @@ Property / Method | Type | Description
 
 [Utilities Reference](#utilities)
 
-#### Readable Properties
-
 Property / Method | Type | Description
 ------------------| ---- | -----------
 [`request.socket`](#responsesocket) | [`net.Socket`](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the response
@@ -94,39 +101,16 @@ Property / Method | Type | Description
 [`request.toJSON`](#responsetojson)`()` | `Object` | Not documented
 [`request.writable`](#responsetojson)`()` | `Boolean` | Not documented
 
-### HTTP Control Overview
-
-[Connection Management and HTTP Control Reference](#http-control)
-
-### Content Negotiation Overview
-
-[Content Negotiation Reference](#content-negotiation)
-
-### Response Context Overview
-
-[Response Context Reference](#response-context)
-
-### Security and Privacy Overview
-
-[Security and Privacy Reference](#security-and-privacy)
-
-### Range Responses Overview
-
-[Range Response Reference](#range-responses)
-
-### Authentication Challenge Overview
-
-[Authentication Challenge Reference](#authentication-challenges)
-
-### Cookies Overview
-
-[Cookies Reference](#cookies)
-
 ## API Reference
 
 ### Response Body
 
 See also [Request Body](request.md#request-body).
+
+Koa provides basic support for generating the body of the HTTP response,
+as well support for basic representation metadata headers for the body.
+The Koa API helps middleware to coordinate changes to the body and supports
+the node Stream and Buffer data types.
 
 #### `response.body`
 
@@ -212,6 +196,8 @@ ctx.type = 'png';
   example `response.type = 'html'` will default to "utf-8", however
   when explicitly defined in full as `response.type = 'text/html'`
   no charset is assigned.
+  
+  Powered by [content-type](https://github.com/jshttp/content-type)
 
 #### `response.is(types...)`
 
@@ -238,15 +224,16 @@ app.use(function * minifyHTML(next) {
   ctx.body = minify(body);
 });
 ```
+  Powered by [type-is](https://github.com/jshttp/type-is).
+
 #### `response.attachment([filename])`
 
   Set `Content-Disposition` to "attachment" to signal the client
   to prompt for download. Optionally specify the `filename` of the
   download.
+  Powered by [content-disposition](https://github.com/jshttp/content-disposition).
 
 #### Response Body Headers
-
-and Representation Metadata
 
 Header Field | Specification | Koa Support
 ------------ | ------------- | -----------
@@ -260,6 +247,9 @@ Header Field | Specification | Koa Support
 See also [Request Body Headers](request.md#request-body-headers).
 
 ### Status Line
+
+Koa has support for setting the HTTP response status and message and
+determining the proper message to correspond to a given status.
 
 #### `response.status`
 
@@ -343,6 +333,9 @@ so you can make a correction.
 
 See also [Request Header Accessors](request.md#header-accessors).
 
+Basic methods for accessing the request header and the unparsed value of request
+header fields.  There is support for adding and removing headers from the response.
+
 #### `response.header`
 
   Response header object.
@@ -403,6 +396,10 @@ ctx.append('Link', '<http://127.0.0.1/>');
 
 See also [Request HTTP Caching](request.md#http-caching).
 
+Koa has basic support for issuing response headers related to caching.
+For more comprehensive support, check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
+
 #### `response.lastModified`
 
   Return the `Last-Modified` header as a `Date`, if it exists.
@@ -427,7 +424,7 @@ ctx.response.etag = crypto.createHash('md5').update(ctx.body).digest('hex');
 
 #### `response.vary(field)`
 
-  Vary on `field`.
+  Vary on `field`.  Powered by [vary](https://github.com/jshttp/vary)
 
 #### HTTP Caching Headers
 
@@ -492,6 +489,8 @@ See also [Request Routing Headers](request.md#request-routing-headers).
 
 See also [Request Connection Management and HTTP Control](request.md#http-control).
 
+HTTP Control headers are usually handled by node's [http](https://nodejs.org/api/http.html) module.
+
 #### HTTP Control Headers
 
 Header Field | Specification | Koa Support
@@ -505,13 +504,13 @@ Header Field | Specification | Koa Support
 
 See also [Request Connection Management and HTTP Control Headers](request.md#http-control-headers).
 
-### Content Negotiation
-
-See also [Request Content Negotiation](request.md#content-negotiation).
-
 ### Response Context
 
 See also [Request Context](request.md#request-context).
+
+Koa does not bundle specific support for response context headers.
+Check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### Response Context Headers
 
@@ -525,6 +524,11 @@ See also [Request Context Headers](request.md#request-context-headers).
 ### Security and Privacy
 
 See also [Request Security and Privacy](request.md#security-and-privacy).
+
+Koa does not bundle specific support for HTTP security features such as CORS, 
+Strict Transport Security, Content Security Policy, etc.
+Check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### Security and Privacy Headers
 
@@ -549,6 +553,9 @@ Header Field | Specification | Koa Support
 
 See also [Range Requests](request.md#range-requests).
 
+Koa does not bundle support for range requests, check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
+
 #### Range Response Headers
 
 Header Field | Specification | Koa Support
@@ -561,6 +568,9 @@ See also [Range Request Headers](request.md#range-request-headers).
 ### Authentication Challenges
 
 See also [Request Authentication Credentials](request.md#authentication-credentials).
+
+Koa does not bundle support for [HTTP authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication), check [jshttp](https://jshttp.github.io) or [npm](https://www.npmjs.com) for
+lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### Authentication Challenge Headers
 
