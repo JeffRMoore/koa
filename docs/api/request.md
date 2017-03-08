@@ -24,11 +24,11 @@
 
 [Request Method Reference](#request-method)
 
-Access the http method from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1).
+Access the HTTP method from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1).
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.method`](#requestmethod) | `String` | The request's HTTP method (e.g. GET or POST)
+[`request.method`](#requestmethod) | `String` | The request's HTTP method (e.g. `GET` or `POST`)
 [`request.method`](#requestmethod)` = ` | `String` | Set the request's HTTP method
 [`request.idempotent`](#requestidempotent) | `Boolean` | Is the request method idempotent?
 
@@ -42,36 +42,36 @@ This functionality is used for url construction and routing.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.protocol`](#requestprotocol) | `String` | The request protocol, "https" or "http".
+[`request.protocol`](#requestprotocol) | `String` | The request protocol, (e.g. `"https"` or `"http"`)
 [`request.secure`](#requestsecure) | `Boolean` | `true` if the request was issued via TLS
-[`request.host`](#requesthost) | `String` | The value of the `Host` header.
-[`request.hostname`](#requesthostname)| `String` | The `host` without the port.
-[`request.subdomains`](#requestsubdomains) | `Array` | The `hostname`, split into subdomains 
+[`request.host`](#requesthost) | `String` | The value of the `Host` header
+[`request.hostname`](#requesthostname)| `String` | The [`host`](#requesthost) without the port
+[`request.subdomains`](#requestsubdomains) | `Array` | The [`hostname`](#requesthostname), split into subdomains 
 [`request.url`](#requesturl) | `String` | The request URL (full request target)
 [`request.url`](#requesturl)`= ` | `String` | Set the full request url, including query parameters
-[`request.originalUrl`](#requestoriginalurl) | `String` | The value of `url` prior to any request modifications
+[`request.originalUrl`](#requestoriginalurl) | `String` | The value of [`url`](#requesturl) prior to any modifications of the request
 [`request.path`](#requestpath) | `String` | The requested path
 [`request.path`](#requestpath)` =` | ` String` | Set request path
-[`request.search`](#requestsearch) | `String` | The raw query string with the `?`
-[`request.search`](#requestsearch)` =` | `String` | Set raw query string with (must include '?')
+[`request.search`](#requestsearch) | `String` | The raw query string including the `?`
+[`request.search`](#requestsearch)` =` | `String` | Set raw query string with (must include `?`)
 [`request.querystring`](#requestquerystring) | `String` | The raw query string void of `?`
-[`request.querystring`](#requestquerystring)`= ` | `String` | Set raw query string (do not include '?')
+[`request.querystring`](#requestquerystring)`= ` | `String` | Set raw query string (do not include `?`)
 [`request.query`](#requestquery) | `Object` | The parsed query string
-[`request.query`](#requestquery)`= ` | `String` | Set query-string to the given object
-[`request.origin`](#requestorigin) | `String` | The `protocol` and the `host` in `protocol:\\host` format
-[`request.href`](#requesthref) | `String` | The full `url`, prefixed by `origin`
+[`request.query`](#requestquery)`= ` | `Object` | Use the given object to set the [`querystring`](#querystring)
+[`request.origin`](#requestorigin) | `String` | The [`protocol`](#requestprotocol) and the [`host`](#requesthost) in `protocol:\\host` format
+[`request.href`](#requesthref) | `String` | The full [`url`](#requesturl) prefixed by [`origin`](#requestorigin)
 
 ### Header Accessor Overview
 
 [Header Accessors Reference](#header-accessors)
 
-General methods and properties for accesing request headers.
+General methods and properties for accessing request headers.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.header`](#requestheader) | `Object` | All request headers as an object with header name as the key.
-[`request.headers`](#requestheaders) | `Object` | Alias of `header`
-[`request.get`](#requestget)() | `String` | Get a header value by name
+[`request.header`](#requestheader) | `Object` | All request headers as an object with header field name as the key.
+[`request.headers`](#requestheaders) | `Object` | An alias of [`header`](#requestheader)
+[`request.get`](#requestget)() | `String` | Get the value of a header field by the specified name
 
 ### HTTP Caching Overview
 
@@ -88,10 +88,10 @@ Property / Method | Type | Description
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.accepts`](#requestaccepts)`()` | `Array`<br> `String`<br> `false` | Check if the given MIME types are acceptable
-[`request.acceptsEncodings`](#requestacceptsencodings)`()` | `Array`<br> `String` | Check if `encodings` are acceptable
-[`request.acceptsCharsets`](#requestacceptscharsets)`()` | `Array`<br> `String` | Check if `charsets` are acceptable
-[`request.acceptsLanguages`](#requestacceptslanguages)`()` | `Array`<br> `String` | Check if `langs` are acceptable
+[`request.accepts`](#requestaccepts)`()` | `Array`<br> `String`<br> `false` | Check if the specified MIME types are acceptable to the client
+[`request.acceptsEncodings`](#requestacceptsencodings)`()` | `Array`<br> `String` | Check if the specified encodings are acceptable to the client
+[`request.acceptsCharsets`](#requestacceptscharsets)`()` | `Array`<br> `String` | Check if character sets are acceptable to the client
+[`request.acceptsLanguages`](#requestacceptslanguages)`()` | `Array`<br> `String` | Check if specified languages are acceptable to the client
 
 ### Request Body Overview
 
@@ -102,9 +102,9 @@ Access the [request body](https://tools.ietf.org/html/rfc7230#section-3.3) and
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.type`](#requesttype) | `String` | The `Content-Type` header void of parameters such as "charset"
-[`request.charset`](#requestcharset) | `String` | The charset from the `Content-Type` header when present, or `undefined`
-[`request.length`](#requestlength) | `Number` | Return `Content-Length` header as a number when present, or `undefined`
+[`request.type`](#requesttype) | `String` | The `Content-Type` header field void of parameters such as `"charset"`
+[`request.charset`](#requestcharset) | `String` | The charset from the `Content-Type` header field when present
+[`request.length`](#requestlength) | `Number` | Return the value of the `Content-Length` header field as a number when present
 [`request.is`](#requestis)`()` | `Boolean` |Check if the incoming request contains the `Content-Type` header field, and it contains any of the given MIME types. 
 
 ### Request Context Overview
@@ -113,8 +113,8 @@ Property / Method | Type | Description
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.ip`](#requestip) | `String` |  Request remote address. Supports `X-Forwarded-For`
-[`request.ips`](#requestips) | `Array` | The list of IPs from the `X-Forwarded-For` header  
+[`request.ip`](#requestip) | `String` |  The remote IP address of the request accounting for proxies via the `X-Forwarded-For` header field 
+[`request.ips`](#requestips) | `Array` | The list of IPs from the `X-Forwarded-For` header field
 
 ### Utilities Overview
 
@@ -122,6 +122,8 @@ Property / Method | Type | Description
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
+[`request.ctx`](#requestctx) | [`Context`](context.md) | The context object that this request is associated with
+[`request.req`](#requestreq) | [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage) | The node `IncomingMessage` object managed by this request object
 [`request.socket`](#requestsocket) | [`net.Socket`](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the request
 [`request.inspect`](#requestinspect)`()`| `Object` | Not documented
 [`request.toJSON`](#requesttojson)`()` | `Object` | Not documented
@@ -183,7 +185,7 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   the app. By default, the domain of the app is assumed to be the last two
   parts of the host. This can be changed by setting `app.subdomainOffset`.
 
-  For example, if the domain is "tobi.ferrets.example.com":
+  For example, if the domain is `"tobi.ferrets.example.com"`:
   If `app.subdomainOffset` is not set, `ctx.subdomains` is `["ferrets", "tobi"]`.
   If `app.subdomainOffset` is 3, `ctx.subdomains` is `["tobi"]`.
 
@@ -229,7 +231,7 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   query-string is present. Note that this getter does _not_
   support nested parsing.
 
-  For example "color=blue&size=small":
+  For example `"color=blue&size=small"`:
 
 ```js
 {
@@ -292,7 +294,7 @@ header fields.
 
 #### `request.headers`
 
- Request header object. Alias as `request.header`.
+ Request header object. Alias of [`request.header`](#requestheader).
 
 #### `request.get(field)`
 
@@ -364,8 +366,8 @@ In the case of missing accept headers where any type is acceptable, the first ty
 #### `request.accepts(types)`
 
   Check if the given `type(s)` is acceptable, returning the best match when true, otherwise `false`. The `type` value may be one or more mime type string
-  such as "application/json", the extension name
-  such as "json", or an array `["json", "html", "text/plain"]`.
+  such as `"application/json"`, the extension name
+  such as `"json"`, or an array `["json", "html", "text/plain"]`.
 
 ```js
 // Accept: text/html
@@ -501,11 +503,11 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.length`
 
-  Return request Content-Length as a number when present, or `undefined`.
+  Return request `Content-Length` as a number when present, or `undefined`.
 
 #### `request.type`
 
-  Get request `Content-Type` void of parameters such as "charset".
+  Get request `Content-Type` void of parameters such as `"charset"`.
 
 ```js
 const ct = ctx.request.type
@@ -523,8 +525,8 @@ ctx.request.charset
 
 #### `request.is(types...)`
 
-  Check if the incoming request contains the "Content-Type"
-  header field, and it contains any of the give mime `type`s.
+  Check if the incoming request contains the `Content-Type`
+  header field, and it contains any of the give mime `types`.
   If there is no request body, `null` is returned.
   If there is no content type, or the match fails `false` is returned.
   Otherwise, it returns the matching content-type.
@@ -594,6 +596,14 @@ Header Field | Specification | Koa Support
 See also [Response Context Headers](response.md#response-context-headers)
 
 ### Utilities
+
+#### `request.ctx`
+
+  MISSING DOCUMENTATION
+
+#### `request.req`
+
+  MISSING DOCUMENTATION
 
 #### `request.socket`
 

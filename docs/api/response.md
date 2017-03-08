@@ -29,14 +29,14 @@ as well as basic representation metadata headers.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`body`](#responsebody) | `String`<br> `Buffer`<br> `Object`<br> `Stream` | The response body
-[`request.body`](#responsebody)` =` | `String`<br> `Buffer`<br> `Object`<br> `Stream` | Set the response body
-[`request.length`](#responselength) | `Number` | The value of the `Content-Length` header as a number when present
-[`request.length`](#responselength)` =` | `Number` | Set response `Content-Length` to the given value
-[`request.type`](#responsetype) | `String` | The value of the `Content-Type` header void of parameters such as "charset"
-[`request.type`](#responsetype)` =` | `String` | Set response `Content-Type` header
-[`request.is`](#responseis)`()` | `String`<br> `false` | Check whether the response `Content-Type` matches one of the supplied types.
-[`request.attachment`](#responseattachment)`()` | `undefined` | Set `Content-Disposition` to "attachment" to signal the client to prompt for download.
+[`response.body`](#responsebody) | `String`<br> `Buffer`<br> `Object`<br> `Stream`<br> `null` | The response body
+[`response.body`](#responsebody)` =` | `String`<br> `Buffer`<br> `Object`<br> `Stream`<br> `null` | Set the response body
+[`response.length`](#responselength) | `Number` | The value of the `Content-Length` header as a number when present
+[`response.length`](#responselength)` =` | `Number` | Set response `Content-Length` to the given value
+[`response.type`](#responsetype) | `String` | The value of the `Content-Type` header void of parameters such as "charset"
+[`response.type`](#responsetype)` =` | `String` | Set response `Content-Type` header
+[`response.is`](#responseis)`()` | `String`<br> `false` | Check whether the response `Content-Type` matches one of the specified types.
+[`response.attachment`](#responseattachment)`()` | `undefined` | Set `Content-Disposition` to `attachment` to signal the client to prompt for download.
 
 ### Status Line Overview
 
@@ -46,10 +46,10 @@ Read and set the HTTP response status and proper corresponding status message.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.status`](#responsestuatus) | `Number` | The response status
-[`request.status`](#responsestuatus) = | `Number` | Set the response status
-[`request.message`](#response) | `String` | The response status message
-[`request.message`](#response) = | `String` | Set the response status message
+[`response.status`](#responsestuatus) | `Number` | The response status
+[`response.status`](#responsestuatus) = | `Number` | Set the response status
+[`response.message`](#response) | `String` | The response status message
+[`response.message`](#response) = | `String` | Set the response status message
 
 ### Header Accessor Overview
 
@@ -59,14 +59,14 @@ Basic support for emitting and manipulating HTTP header fields.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.header`](#responseheader) | `Object` | All response headers as an object with header name as the key.
-[`request.headers`](#responseheaders) | `Object` | Alias of `header`
-[`request.get`](#responseget)() | `String` | Get a response header value by name
-[`request.set`](#responseset)() | `undefined` | Set a response header value by name (replacing existing header)
-[`request.append`](#responseappend)() | `undefined` | Append additional header.  Like `set` but without replacing.
-[`request.remove`](#responseremove)() | `undefined` | Remove response header by name
-[`request.flushHeaders`](#responseflushheaders)() | `undefined` | Flush any set headers, and begin the body.
-[`request.headerSent`](#responseheaderssent)() | `Boolean` | Check if a response header has already been sent. 
+[`response.header`](#responseheader) | `Object` | All response headers as an object with header name as the key.
+[`response.headers`](#responseheaders) | `Object` | Alias of [`header`](#responseheader)
+[`response.get`](#responseget)() | `String` |  Get the value of a response header field by the specified name
+[`response.set`](#responseset)() | `undefined` | Set a response header field value by field name (replacing existing header)
+[`response.append`](#responseappend)() | `undefined` | Append additional header field.  Like [`set`](#responseset) but without replacing
+[`response.remove`](#responseremove)() | `undefined` | Remove response header field by field name
+[`response.flushHeaders`](#responseflushheaders)() | `undefined` | Flush any headers associated with the response, and begin the body
+[`response.headerSent`](#responseheaderssent)() | `Boolean` | Check if a response header field has already been sent 
 
 ### HTTP Caching Overview
 
@@ -76,11 +76,11 @@ Emit basic caching related HTTP headers.
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.lastModified`](#responselastmodified) | `Date` | The value of the `Last-Modified` header if it exists
-[`request.lastModified`](#responselastmodified)` =` | `String`<br> `Date` | Set the `Last-Modified` header as an appropriate UTC string
-[`request.etag`](#responseetag) | `String` | The value of the `Etag` header if it exists
-[`request.etag`](#responseetag)` =` | `String` | Set the value of the `Etag` header
-[`request.vary`](#responsevary)`()` | `undefined` | Issue a `Vary` header
+[`response.lastModified`](#responselastmodified) | `Date` | The value of the `Last-Modified` header field if it exists
+[`response.lastModified`](#responselastmodified)` =` | `String`<br> `Date` | Set the value of the `Last-Modified` header field as an appropriate UTC string
+[`response.etag`](#responseetag) | `String` | The value of the `Etag` header field if it exists
+[`response.etag`](#responseetag)` =` | `String` | Set the value of the `Etag` header field
+[`response.vary`](#responsevary)`()` | `undefined` | Issue a `Vary` header field
 
 ### Response Routing Overview
 
@@ -88,7 +88,7 @@ Property / Method | Type | Description
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.redirect`](#responseredirect)`()` | `undefined` | Issue a `Location` header for a 30x redirect.
+[`response.redirect`](#responseredirect)`()` | `undefined` | Issue a `Location` header for a 30x redirect.
 
 ### Utilities Overview
 
@@ -96,10 +96,12 @@ Property / Method | Type | Description
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`request.socket`](#responsesocket) | [`net.Socket`](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the response
-[`request.inspect`](#responseinspect)`()` | `Object` | Not documented
-[`request.toJSON`](#responsetojson)`()` | `Object` | Not documented
-[`request.writable`](#responsetojson)`()` | `Boolean` | Not documented
+[`response.ctx`](#responsectx) | [`Context`](context.md) | The context object that this response is associated with
+[`response.res`](#responseres) | [`http.ServerResponse`](#https://nodejs.org/api/http.html#http_class_http_serverresponse) | The node `ServerResponse` object managed by this response object
+[`response.socket`](#responsesocket) | [`net.Socket`](https://nodejs.org/api/net.html#net_class_net_socket) | The socket associated with the response
+[`response.inspect`](#responseinspect)`()` | `Object` | Not documented
+[`response.toJSON`](#responsetojson)`()` | `Object` | Not documented
+[`response.writable`](#responsetojson)`()` | `Boolean` | Not documented
 
 ## API Reference
 
@@ -116,31 +118,37 @@ the node Stream and Buffer data types.
 
   Get response body.
 
-#### `response.body = String | Buffer | Stream | Object`
+#### `response.body = String | Buffer | Stream | Object| null`
 
-  Set response body to one of the following:
+  Set response body to one of the following types:
 
-  - `string` written
-  - `Buffer` written
-  - `Stream` piped
-  - `Object` json-stringified
-  - `null` no content response
+  - `string` will be written to the body
+  - `Buffer` will be written to the body
+  - `Stream` will be piped to the body
+  - `Object` will be json-stringified and written to the body
+  - `null` indicates no content in the body of the response
 
-If `response.status` has not been set, Koa will automatically set the status to `200` or `204`.
+If [`response.status`](#responsestatus) has not been set, Koa will automatically set the status to `200` or `204`.
+_When is it 200 and when is it 204?_
+
+_What happens if a Number or Boolean is used?_
+
+_When does writing begin?_
 
 ##### String
 
-  The Content-Type is defaulted to text/html or text/plain, both with
-  a default charset of utf-8. The Content-Length field is also set.
+  The value of the `Content-Type` header field is defaulted to `text/html` or `text/plain`, both with
+  a default charset of `utf-8`. The `Content-Length` header field is also set
+  to the length of the body string.
 
 ##### Buffer
 
-  The Content-Type is defaulted to application/octet-stream, and Content-Length
-  is also set.
+  The `Content-Type` header field is defaulted to `application/octet-stream`, and the 
+  `Content-Length` header field is also set.
 
 ##### Stream
 
-  The Content-Type is defaulted to application/octet-stream.
+  The `Content-Type` header field is defaulted to `application/octet-stream`.
 
   Whenever a stream is set as the response body, `.onerror` is automatically added as a listener to the `error` event to catch any errors.
   In addition, whenever the request is closed (even prematurely), the stream is destroyed.
@@ -161,16 +169,17 @@ app.use(function * (next) {
 
 ##### Object
 
-  The Content-Type is defaulted to application/json.
+  The `Content-Type` header field is defaulted to `application/json` and
+  the object is serialized as a json string and written to the body.
 
 #### `response.length`
 
-  Return response Content-Length as a number when present, or deduce
+  Return response `Content-Length` as a number when present, or deduce
   from `ctx.body` when possible, or `undefined`.
 
 #### `response.length = Number`
 
-  Set response Content-Length to the given value.
+  Set response `Content-Length` to the given value.
 
 #### `response.type`
 
@@ -201,7 +210,6 @@ ctx.type = 'png';
 
 #### `response.is(types...)`
 
-  Very similar to `ctx.request.is()`.
   Check whether the response type is one of the supplied types.
   This is particularly useful for creating middleware that
   manipulate responses.
@@ -224,6 +232,7 @@ app.use(function * minifyHTML(next) {
   ctx.body = minify(body);
 });
 ```
+  Very similar to [`request.is`](request.md#requestis).
   Powered by [type-is](https://github.com/jshttp/type-is).
 
 #### `response.attachment([filename])`
@@ -323,7 +332,7 @@ so you can make a correction.
 #### `response.message`
 
   Get response status message. By default, `response.message` is
-  associated with `response.status`.
+  associated with [`response.status`](#response.status).
 
 #### `response.message = String`
 
@@ -335,6 +344,8 @@ See also [Request Header Accessors](request.md#header-accessors).
 
 Basic methods for accessing the request header and the unparsed value of request
 header fields.  There is support for adding and removing headers from the response.
+
+Headers are buffered until the entire header for the response is written.  _After that?_
 
 #### `response.header`
 
@@ -378,7 +389,7 @@ ctx.set({
 
 #### `response.append(field, value)`
 
-  Append additional header `field` with value `val`.
+  Append additional header `field` with value `value`.
 
 ```js
 ctx.append('Link', '<http://127.0.0.1/>');
@@ -413,10 +424,13 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 ctx.response.lastModified = new Date();
 ```
 
+#### `response.etag`
+
+NOT DOCUMENTED
+
 #### `response.etag = String`
 
-  Set the ETag of a response including the wrapped `"`s.
-  Note that there is no corresponding `response.etag` getter.
+  Set the `ETag` header field of a response including the wrapped `"`s.
 
 ```js
 ctx.response.etag = crypto.createHash('md5').update(ctx.body).digest('hex');
@@ -448,11 +462,12 @@ See also [Request Routing](request.md#request-routing).
 
 #### `response.redirect(url, [alt])`
 
-  Perform a [302] redirect to `url`.
+  Perform a `302` redirect to `url`.
 
-  The string "back" is special-cased
-  to provide Referrer support, when Referrer
-  is not present `alt` or "/" is used.
+  The string `"back"` is special-cased
+  to provide support for the `Referrer` header field.
+  When `Referrer` is not present, `alt` will be used and if
+  `alt` is not specified, `"/"` is used.
 
 ```js
 ctx.redirect('back');
@@ -480,6 +495,14 @@ Header Field | Specification | Koa Support
 See also [Request Routing Headers](request.md#request-routing-headers).
 
 ### Utilities
+
+#### `request.ctx`
+
+  MISSING DOCUMENTATION
+
+#### `request.res`
+
+  MISSING DOCUMENTATION
 
 #### `response.socket`
 
