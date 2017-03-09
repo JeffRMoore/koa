@@ -134,14 +134,16 @@ Property / Method | Type | Description
 
 Access the http method from the [request line](https://tools.ietf.org/html/rfc7230#section-3.1.1).
 
-#### request.method
+#### `request.method`
 
+  - returns `String`
+  
   Request method.
 
   An alias is available on the Context object for `request.method` allowing
   `ctx.request.method` to be abbreviated as `ctx.method`.
 
-#### request.method = `String`
+#### `request.method = String`
 
   Set request method, useful for implementing middleware
   such as `methodOverride()`.
@@ -149,7 +151,9 @@ Access the http method from the [request line](https://tools.ietf.org/html/rfc72
   An alias is available on the Context object for `request.method` allowing
   `ctx.request.method` to be abbreviated as `ctx.method`.
 
-#### request.idempotent
+#### `request.idempotent`
+
+  - returns `Boolean`
 
   Check if the request is idempotent.
 
@@ -168,6 +172,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.protocol`
 
+  - returns `String`
+
   Return request protocol, "https" or "http". Supports `X-Forwarded-Proto`
   when `app.proxy` is __true__.
 
@@ -175,6 +181,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   `ctx.request.protocol` to be abbreviated as `ctx.protocol`.
 
 #### `request.secure`
+
+  - returns `Boolean`
 
   Shorthand for `ctx.request.protocol == "https"` to check if a request was
   issued via TLS.
@@ -184,6 +192,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.host`
 
+  - returns `String`
+
   Get host (hostname:port) when present. Supports `X-Forwarded-Host`
   when `app.proxy` is __true__, otherwise `Host` is used.
 
@@ -192,6 +202,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.hostname`
 
+  - returns `String`
+
   Get hostname when present. Supports `X-Forwarded-Host`
   when `app.proxy` is __true__, otherwise `Host` is used.
 
@@ -199,6 +211,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   `ctx.request.hostname` to be abbreviated as `ctx.hostname`.
 
 #### `request.subdomains`
+
+  - returns `Array`
 
   Return subdomains as an array.
 
@@ -215,6 +229,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.url`
 
+  - returns `String`
+
   Get request URL.
 
   An alias is available on the Context object for `request.url` allowing
@@ -229,9 +245,13 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.originalUrl`
 
+  - returns `String`
+
   Get request original URL.
 
 #### `request.path`
+
+  - returns `String`
 
   Get request pathname.
 
@@ -247,6 +267,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.search`
 
+  - returns `String`
+
   Get raw query string with the `?`.
 
   An alias is available on the Context object for `request.search` allowing
@@ -261,6 +283,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.querystring`
 
+  - returns `String`
+
   Get raw query string void of `?`.
 
   An alias is available on the Context object for `request.querystring` allowing
@@ -274,6 +298,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
   `ctx.request.querystring` to be abbreviated as `ctx.querystring`.
 
 #### `request.query`
+
+  - returns `Object`
 
   Get parsed query-string, returning an empty object when no
   query-string is present. Note that this getter does _not_
@@ -305,6 +331,8 @@ ctx.request.query = { next: '/login' }
 
 #### `request.origin`
 
+  - returns `String`
+
   Get origin of URL, include `protocol` and `host`. Unrelated to the CORS 'Origin' header.
 
 ```js
@@ -316,6 +344,8 @@ ctx.request.origin
   `ctx.request.origin` to be abbreviated as `ctx.origin`.
 
 #### `request.href`
+
+  - returns `String`
 
   Get full request URL, include `protocol`, `host` and `url`.
 
@@ -350,6 +380,8 @@ header fields.
 
 #### `request.header`
 
+  - returns `Object`
+
  Request header object.
 
   An alias is available on the Context object for `request.header` allowing
@@ -357,12 +389,17 @@ header fields.
 
 #### `request.headers`
 
+  - returns `Object`
+
  Request header object. Alias of [`request.header`](#requestheader).
 
   An alias is available on the Context object for `request.headers` allowing
   `ctx.request.headers` to be abbreviated as `ctx.headers`.
 
 #### `request.get(field)`
+
+  - `field: String`
+  - returns `String`
 
   Return request header.
 
@@ -378,6 +415,8 @@ For more comprehensive support, check [jshttp](https://jshttp.github.io) or [npm
 lower level support, or the [Koa middleware community](https://github.com/koajs/koa/wiki).
 
 #### `request.fresh`
+
+  - returns `Boolean`
 
   Check if a request cache is "fresh", aka the contents have not changed. This
   method is for cache negotiation between `If-None-Match` / `ETag`, and `If-Modified-Since` and `Last-Modified`. It should be referenced after setting one or more of these response headers.
@@ -405,7 +444,9 @@ Powered by [Fresh](https://github.com/jshttp/fresh).
 
 #### `request.stale`
 
-  Inverse of `request.fresh`.
+  - returns `Boolean`
+
+  Inverse of [`request.fresh`](#requestfresh).
 
   An alias is available on the Context object for `request.stale` allowing
   `ctx.request.stale` to be abbreviated as `ctx.stale`.
@@ -439,6 +480,9 @@ If multiple types are supplied, the best match will be returned. If no matches a
 In the case of missing accept headers where any type is acceptable, the first type will be returned. Thus, the order of types you supply is important.
 
 #### `request.accepts(types)`
+
+  - `types`: `String` or `Array`
+  - returns `String` or `Array` or `false`
 
   Check if the given `type(s)` is acceptable, returning the best match when true, otherwise `false`. The `type` value may be one or more mime type string
   such as `"application/json"`, the extension name
@@ -493,6 +537,9 @@ switch (ctx.request.accepts('json', 'html', 'text')) {
 
 #### `request.acceptsEncodings(encodings)`
 
+  - `encodings`: `String` or `Array`
+  - returns `String` or `Array`
+
   Check if `encodings` are acceptable, returning the best match when true, otherwise `false`. Note that you should include `identity` as one of the encodings!
 
 ```js
@@ -520,6 +567,9 @@ ctx.request.acceptsEncodings();
 
 #### `request.acceptsCharsets(charsets)`
 
+  - `charsets`: `String` or `Array`
+  - returns `String` or `Array`
+
   Check if `charsets` are acceptable, returning
   the best match when true, otherwise `false`.
 
@@ -545,6 +595,9 @@ ctx.request.acceptsCharsets();
   `ctx.request.acceptsCharsets` to be abbreviated as `ctx.acceptsCharsets`.
 
 #### `request.acceptsLanguages(langs)`
+
+  - `langs`: `String` or `Array`
+  - returns `String` or `Array`
 
   Check if `langs` are acceptable, returning
   the best match when true, otherwise `false`.
@@ -590,9 +643,13 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `request.length`
 
+  - returns `Number`
+
   Return request `Content-Length` as a number when present, or `undefined`.
 
 #### `request.type`
+
+  - returns `String`
 
   Get request `Content-Type` void of parameters such as `"charset"`.
 
@@ -603,6 +660,8 @@ const ct = ctx.request.type
 
 #### `request.charset`
 
+  - returns `String`
+
   Get request charset when present, or `undefined`:
 
 ```js
@@ -611,6 +670,9 @@ ctx.request.charset
 ```
 
 #### `request.is(types...)`
+
+  - `types`: `String` or `Array`
+  - returns `Boolean`
 
   Check if the incoming request contains the `Content-Type`
   header field, and it contains any of the give mime `types`.
@@ -666,6 +728,8 @@ Request context describes the issuer of the request.
 
 #### `request.ip`
 
+  - returns `String`
+
   Request remote address. Supports `X-Forwarded-For` when `app.proxy`
   is __true__.
 
@@ -673,6 +737,8 @@ Request context describes the issuer of the request.
   `ctx.request.ip` to be abbreviated as `ctx.ip`.
 
 #### `request.ips`
+
+  - returns `Array`
 
   When `X-Forwarded-For` is present and `app.proxy` is enabled an array
   of these ips is returned, ordered from upstream -> downstream. When disabled
@@ -695,13 +761,19 @@ See also [Response Context Headers](response.md#response-context-headers)
 
 #### `request.ctx`
 
+  - returns `Context`
+
   MISSING DOCUMENTATION
 
 #### `request.req`
 
+  - returns `http.IncomingMessage`
+
   MISSING DOCUMENTATION
 
 #### `request.socket`
+
+  - returns `net.Socket`
 
   Return the request socket.
 
@@ -710,9 +782,13 @@ See also [Response Context Headers](response.md#response-context-headers)
 
 #### `inspect()`
 
+  - returns `Object`
+
 MISSING DOCUMENTATION
 
 #### `toJSON()`
+
+  - returns `Object`
 
 MISSING DOCUMENTATION
 

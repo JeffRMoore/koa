@@ -36,7 +36,7 @@ Property / Method | Type | Description
 [`response.type`](#responsetype) | `String` | The value of the `Content-Type` header void of parameters such as "charset"
 [`response.type`](#responsetype)` =` | `String` | Set response `Content-Type` header
 [`response.is`](#responseis)`()` | `String`<br> `false` | Check whether the response `Content-Type` matches one of the specified types.
-[`response.attachment`](#responseattachment)`()` | `undefined` | Set `Content-Disposition` to `attachment` to signal the client to prompt for download.
+[`response.attachment`](#responseattachment)`()` | | Set `Content-Disposition` to `attachment` to signal the client to prompt for download.
 
 ### Status Line Overview
 
@@ -62,10 +62,10 @@ Property / Method | Type | Description
 [`response.header`](#responseheader) | `Object` | All response headers as an object with header name as the key.
 [`response.headers`](#responseheaders) | `Object` | Alias of [`header`](#responseheader)
 [`response.get`](#responseget)() | `String` |  Get the value of a response header field by the specified name
-[`response.set`](#responseset)() | `undefined` | Set a response header field value by field name (replacing existing header)
-[`response.append`](#responseappend)() | `undefined` | Append additional header field.  Like [`set`](#responseset) but without replacing
-[`response.remove`](#responseremove)() | `undefined` | Remove response header field by field name
-[`response.flushHeaders`](#responseflushheaders)() | `undefined` | Flush any headers associated with the response, and begin the body
+[`response.set`](#responseset)() | | Set a response header field value by field name (replacing existing header)
+[`response.append`](#responseappend)() | | Append additional header field.  Like [`set`](#responseset) but without replacing
+[`response.remove`](#responseremove)() | | Remove response header field by field name
+[`response.flushHeaders`](#responseflushheaders)() | `| Flush any headers associated with the response, and begin the body
 [`response.headerSent`](#responseheaderssent)() | `Boolean` | Check if a response header field has already been sent 
 
 ### HTTP Caching Overview
@@ -80,7 +80,7 @@ Property / Method | Type | Description
 [`response.lastModified`](#responselastmodified)` =` | `String`<br> `Date` | Set the value of the `Last-Modified` header field as an appropriate UTC string
 [`response.etag`](#responseetag) | `String` | The value of the `Etag` header field if it exists
 [`response.etag`](#responseetag)` =` | `String` | Set the value of the `Etag` header field
-[`response.vary`](#responsevary)`()` | `undefined` | Issue a `Vary` header field
+[`response.vary`](#responsevary)`()` | `| Issue a `Vary` header field
 
 ### Response Routing Overview
 
@@ -88,7 +88,7 @@ Property / Method | Type | Description
 
 Property / Method | Type | Description
 ------------------| ---- | -----------
-[`response.redirect`](#responseredirect)`()` | `undefined` | Issue a `Location` header for a 30x redirect.
+[`response.redirect`](#responseredirect)`()` |  | Issue a `Location` header for a 30x redirect.
 
 ### Utilities Overview
 
@@ -115,6 +115,8 @@ The Koa API helps middleware to coordinate changes to the body and supports
 the node Stream and Buffer data types.
 
 #### `response.body`
+
+  - returns `String` or `Buffer` or `Object` or `Stream` or `null`
 
   Get response body.
 
@@ -180,6 +182,8 @@ app.use(function (ctx, next) {
 
 #### `response.length`
 
+  - returns `Number`
+
   Return response `Content-Length` as a number when present, or deduce
   from `ctx.response.body` when possible, or `undefined`.
 
@@ -194,6 +198,8 @@ app.use(function (ctx, next) {
   `ctx.response.length` to be abbreviated as `ctx.length`.
 
 #### `response.type`
+
+  - returns `String`
 
   Get response `Content-Type` void of parameters such as "charset".
 
@@ -228,6 +234,9 @@ ctx.response.type = 'png';
 
 #### `response.is(types...)`
 
+  - `types`: `String` or `Array`
+  - returns `String` pr `false`
+
   Check whether the response type is one of the supplied types.
   This is particularly useful for creating middleware that
   manipulate responses.
@@ -254,6 +263,8 @@ app.use(async function minifyHTML(ctx, next) {
   Powered by [type-is](https://github.com/jshttp/type-is).
 
 #### `response.attachment([filename])`
+
+  - `filename`: `String`
 
   Set `Content-Disposition` to "attachment" to signal the client
   to prompt for download. Optionally specify the `filename` of the
@@ -282,6 +293,8 @@ Koa has support for setting the HTTP response status and message and
 determining the proper message to correspond to a given status.
 
 #### `response.status`
+
+  - returns `Number`
 
   Get response status. By default, `response.status` is set to `404` unlike node's `res.statusCode` which defaults to `200`.
   
@@ -358,6 +371,8 @@ so you can make a correction.
 
 #### `response.message`
 
+  - returns `String`
+
   Get response status message. By default, `response.message` is
   associated with [`response.status`](#response.status).
 
@@ -382,13 +397,19 @@ Headers are buffered until the entire header for the response is written.  _Afte
 
 #### `response.header`
 
+  - returns `Object`
+
   Response header object.
 
 #### `response.headers`
 
+  - returns `Object`
+
   Response header object. Alias as `response.header`.
 
 #### `response.headerSent`
+
+  - returns `Boolean`
 
   Check if a response header has already been sent. Useful for seeing
   if the client may be notified on error.
@@ -398,6 +419,9 @@ Headers are buffered until the entire header for the response is written.  _Afte
 
 #### `response.get(field)`
 
+  - `field`: `String`
+  - returns `String`
+
   Get a response header field value with case-insensitive `field`.
 
 ```js
@@ -406,6 +430,8 @@ const etag = ctx.respnse.get('ETag');
 
 #### `response.set(field, value)`
 
+  - `field`: `String`
+  - `value`: `String` or `Array`
   Set response header `field` to `value`:
 
 ```js
@@ -417,6 +443,7 @@ ctx.response.set('Cache-Control', 'no-cache');
 
 #### `response.set(fields)`
 
+  - `fields`: `Object`
   Set several response header `fields` with an object:
 
 ```js
@@ -428,6 +455,8 @@ ctx.response.set({
 
 #### `response.append(field, value)`
 
+  - `field`: `String`
+  - `value`: `String` or `Array`
   Append additional header `field` with value `value`.
 
 ```js
@@ -438,6 +467,8 @@ ctx.response.append('Link', '<http://127.0.0.1/>');
   `ctx.response.append` to be abbreviated as `ctx.append`.
 
 #### `response.remove(field)`
+
+  - `field`: `String`
 
   Remove header `field`.
 
@@ -461,6 +492,8 @@ lower level support, or the [Koa middleware community](https://github.com/koajs/
 
 #### `response.lastModified`
 
+  - returns `Date`
+
   Return the `Last-Modified` header as a `Date`, if it exists.
 
   An alias is available on the Context object for `response.lastModified` allowing
@@ -480,6 +513,8 @@ ctx.response.lastModified = new Date();
 
 #### `response.etag`
 
+  - returns `String`
+
 NOT DOCUMENTED
 
   An alias is available on the Context object for `response.etag` allowing
@@ -497,6 +532,8 @@ ctx.response.etag = crypto.createHash('md5').update(ctx.response.body).digest('h
   `ctx.response.etag` to be abbreviated as `ctx.etag`.
 
 #### `response.vary(field)`
+
+  - `field`: `String` or `Array`
 
   Vary on `field`.  Powered by [vary](https://github.com/jshttp/vary).
   
@@ -525,6 +562,9 @@ See also [Request HTTP Caching Headers](request.md#http-caching-headers).
 See also [Request Routing](request.md#request-routing).
 
 #### `response.redirect(url, [alt])`
+
+  - `url`: `String`
+  - `alt`: `String`
 
   Perform a `302` redirect to `url`.
 
@@ -565,25 +605,37 @@ See also [Request Routing Headers](request.md#request-routing-headers).
 
 #### `request.ctx`
 
+  - returns `Context`
+
   MISSING DOCUMENTATION
 
 #### `request.res`
+
+  - returns `http.ServerResponse`
 
   MISSING DOCUMENTATION
 
 #### `response.socket`
 
+  - returns `net.Socket`
+
   Request socket.
 
 #### `inspect`
+
+  - returns `Object`
 
   MISSING DOCUMENTATION
 
 #### `toJSON`
 
+  - returns `Object`
+
   MISSING DOCUMENTATION
 
 #### `response.writable`
+
+  - returns `Boolean`
 
   MISSING DOCUMENTATION
 
